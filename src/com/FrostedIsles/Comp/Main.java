@@ -75,7 +75,8 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		config.saveData();
 
-		Bukkit.getScheduler().cancelTasks(this);
+		//Bukkit.getScheduler().cancelTasks(this);
+		Bukkit.getScheduler().cancelAllTasks();
 		plugin = null;
 	}
 
