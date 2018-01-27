@@ -1,5 +1,7 @@
 package com.FrostedIsles.Listeners;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,10 +15,12 @@ import com.FrostedIsles.Comp.Rank;
 
 public class PreJoin implements Listener {
 
-	ConfigurationManager config = Main.config;
+	ConfigurationManager config;
 	
 	public PreJoin(Plugin main) {
 		Bukkit.getServer().getPluginManager().registerEvents(this, main);
+		config = new ConfigurationManager();
+		config.setup(new File(main.getDataFolder(), "config.yml"));
 	}
 
 	@EventHandler

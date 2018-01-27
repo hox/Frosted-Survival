@@ -14,9 +14,9 @@ import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Rank;
 
 public class Management implements CommandExecutor {
-	
+
 	private ConfigurationManager config;
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command c, String cmd, String[] args) {
 		config = new ConfigurationManager();
@@ -142,28 +142,68 @@ public class Management implements CommandExecutor {
 	}
 
 	private void restart(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
-		Bukkit.getServer().getScheduler().runTaskAsynchronously(Main.getPlugin(Main.class), new Runnable() {
-			@Override
-			public void run() {
-				try {
-					for (int i = 60; i > 0; i--) {
-						if (i != 1 && i == 60 || i == 30 || i == 15 || i == 10 || i <= 5) {
-							Main.msgAll("&cThe server will be restarting in " + i + " seconds..");
-						}
-						if (i == 1) {
-							Main.msgAll("&cThe server will be restarting in " + i + " second..");
-						}
-
-						Thread.sleep(1000);
-					}
-					Main.msgAll("&cThe server is restarting");
-					Thread.sleep(1000);
-				} catch (Exception e) {
-					Log.error("An error has occurred while attempting to restart. " + e.getMessage());
-				}
+		if (console) {
+			if(Bukkit.getOnlinePlayers().size() == 0) {
 				Bukkit.shutdown();
 			}
-		});
+			Bukkit.getServer().getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
+				@Override
+				public void run() {
+					try {
+						for (int i = 60; i > 0; i--) {
+							if (i != 1 && i == 60 || i == 30 || i == 15 || i == 10 || i <= 5) {
+								Main.msgAll("&cThe server will be restarting in " + i + " seconds..");
+							}
+							
+							if (i == 1) {
+								Main.msgAll("&cThe server will be restarting in " + i + " second..");
+							}
+
+							Thread.sleep(1000);
+						}
+						Main.msgAll("&cThe server is restarting");
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						Log.error("An error has occurred while attempting to restart. " + e.getMessage());
+					}
+					Bukkit.shutdown();
+				}
+			});
+		} else {
+			if (rank.getRank() >= Rank.Manager()) {
+				if(Bukkit.getOnlinePlayers().size() == 1) {
+					Bukkit.shutdown();
+				}
+				Bukkit.getServer().getScheduler().runTaskAsynchronously(Main.plugin, new Runnable() {
+					@Override
+					public void run() {
+						try {
+							for (int i = 60; i > 0; i--) {
+								if (i != 1 && i == 60 || i == 30 || i == 15 || i == 10 || i <= 5) {
+									Main.msgAll("&cThe server will be restarting in " + i + " seconds..");
+								}
+								
+								if (i == 1) {
+									Main.msgAll("&cThe server will be restarting in " + i + " second..");
+								}
+
+								Thread.sleep(1000);
+							}
+							
+							Main.msgAll("&cThe server is restarting");
+							Thread.sleep(1000);
+						} catch (Exception e) {
+							Log.error("An error has occurred while attempting to restart. " + e.getMessage());
+						}
+						Bukkit.shutdown();
+					}
+				});
+			} else {
+				Main.sendMsg(p, Main.pd);
+			}
+
+		}
+
 	}
 
 }
