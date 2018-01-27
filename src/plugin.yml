@@ -1,0 +1,57 @@
+name: FrostedIsles
+main: com.FrostedIsles.Comp.Main
+version: 1.0
+description: The custom coded plugin.
+depend: [Factions]
+commands:
+    stop:
+        description: Restart the server.
+        usage: /<command>
+        aliases: restart
+    gmc:
+        description: GameMode Creative.
+        usage: /<command>
+    gms:
+        description: GameMode Survival.
+        usage: /<command>
+    gma:
+        description: GameMode Adventure.
+        usage: /<command>
+    gmsp:
+        description: GameMode Spectator.
+        usage: /<command>
+    setrank:
+        description: Sets rank of player.
+        usage: /<command>
+    reloadconfig:
+        description: Reload plugin config files.
+        usage: /<command>
+    ci:
+        description: Clears inventory. 
+        usage: /<command>
+    fly:
+        description: Enables Fly Mode. 
+        usage: /<command>
+    maintenance:
+        description: Maintnance Mode. 
+        usage: /<command>
+    spawn:
+        description: Teleport to the spawn.
+        usage: /<command>
+        aliases: hub
+    shop:
+        description: Teleport to the shop.
+        usage: /<command>
+    apply:
+        description: Apply for staff on our server!
+        usage: /<command>
+    who:
+        description: Gets player info!
+        usage: /<command>
+    report:
+        description: Report an player!
+        usage: /<command>
+    rtp:
+        description: Random teleport!
+        usage: /<command>
+        aliases: wild
