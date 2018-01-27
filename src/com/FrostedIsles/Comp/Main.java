@@ -45,23 +45,26 @@ public class Main extends JavaPlugin {
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
 
-		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() { // TODO: Auto-Broadcast
+		Bukkit.getScheduler().runTaskAsynchronously(this, new Runnable() { // TODO:
+																			// Auto-Broadcast
 			@Override
 			public void run() {
 				for (int i = 0; i < Double.MAX_VALUE; i++) {
-					try {
-						Thread.sleep(180 * 1000);
-						msgAll("&f&l • &3&lDont forget to vote with &8&l/&b&lvote&3&l!");
-						Thread.sleep(180 * 1000);
-						msgAll("&f&l • &c&lTo report a player do &8&l/&b&lreport&c&l!");
-						Thread.sleep(180 * 1000);
-						msgAll("&f&l • &9&lTo apply for staff, Just do &8&l/&b&lapply&9&l!");
-						Thread.sleep(180 * 1000);
-						// msgAll("&f&l • ");
-						// Thread.sleep(180*1000);
-						// msgAll("&f&l • ");
-						// Thread.sleep(180*1000);
-					} catch (InterruptedException e) {
+					if (Bukkit.getOnlinePlayers().size() >= 1) {
+						try {
+							Thread.sleep(180 * 1000);
+							msgAll("&f&l • &3&lDont forget to vote with &8&l/&b&lvote&3&l!");
+							Thread.sleep(180 * 1000);
+							msgAll("&f&l • &c&lTo report a player do &8&l/&b&lreport&c&l!");
+							Thread.sleep(180 * 1000);
+							msgAll("&f&l • &9&lTo apply for staff, Just do &8&l/&b&lapply&9&l!");
+							Thread.sleep(180 * 1000);
+							// msgAll("&f&l • ");
+							// Thread.sleep(180*1000);
+							// msgAll("&f&l • ");
+							// Thread.sleep(180*1000);
+						} catch (InterruptedException e) {
+						}
 					}
 				}
 			}
