@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
@@ -42,8 +43,41 @@ public class Moderators implements CommandExecutor {
 		if (cmd.equalsIgnoreCase("fly")) {
 			fly(p, sender, args, console, rank);
 		}
+		
+		if (cmd.equalsIgnoreCase("invsee")) {
+			invsee(p, sender, args, console, rank);
+		}
 
 		return true;
+	}
+
+	private void invsee(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
+		if (console) {
+			Utilities.sendMsg(sender, Utilities.pd);
+		}else {
+			if (rank.getRank() >=Rank.Moderator()) {
+					if (args.length != 1) {
+						Utilities.sendMsg(sender, "&cUsage: &a>>&7/invsee {PLAYER}");
+				}else {
+					
+					if(args.length == 1) {
+						try {
+						if(args[0] == sender.getName()) {
+							Utilities.sendMsg(sender,"&cError:&7 You cannot open your own inventory!");
+						}
+						else {Player t = Bukkit.getPlayer(args[0]);
+						Inventory targetInv = t.getInventory();
+						p.openInventory(targetInv);
+						}
+					}
+					catch (Exception e) {
+						Utilities.sendMsg(sender, Utilities.pnf);
+					}
+				}
+			}
+		}
+		}
+		
 	}
 
 	private void fly(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
@@ -53,14 +87,15 @@ public class Moderators implements CommandExecutor {
 			if (rank.getRank() >= Rank.Moderator()) {
 				if (p.isFlying()) {
 					p.setFlying(false);
-					Utilities.sendMsg(p, "&cFlight mode enabled!");
+					Utilities.sendMsg(sender, "&cFlight mode enabled!");
 				} else {
 					p.setFlying(true);
-					Utilities.sendMsg(p, "&cFlight mode disabled!");
+					Utilities.sendMsg(sender, "&cFlight mode disabled!");
 				}
 			}
+			}
 		}
-	}
+	
 
 	private void clearInv(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {

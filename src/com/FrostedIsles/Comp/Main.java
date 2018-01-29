@@ -59,6 +59,7 @@ public class Main extends JavaPlugin {
 
 		getCommand("ci").setExecutor(new Moderators());
 		getCommand("fly").setExecutor(new Moderators());
+		getCommand("invsee").setExecutor(new Moderators());
 
 		getCommand("gmc").setExecutor(new Admins());
 		getCommand("gms").setExecutor(new Admins());

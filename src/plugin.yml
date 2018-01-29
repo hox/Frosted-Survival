@@ -55,3 +55,6 @@ commands:
         description: Random teleport!
         usage: /<command>
         aliases: wild
+    invsee:
+        description: See Inventory
+        usage: /<command>
