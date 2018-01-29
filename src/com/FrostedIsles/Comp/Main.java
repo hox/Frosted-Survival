@@ -27,7 +27,6 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		plugin = this;
 		registerConfig();
 		registerCommands();
@@ -46,9 +45,10 @@ public class Main extends JavaPlugin {
 	}
 
 	public void registerConfig() {
+		saveResource("config.yml", false);
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
-		saveDefaultConfig();
+		
 	}
 	
 	public void registerCommands() {

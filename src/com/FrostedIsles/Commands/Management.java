@@ -51,46 +51,46 @@ public class Management implements CommandExecutor {
 			resetconf(p, sender, args, console, rank);
 		}
 
-		if (cmd.equalsIgnoreCase("Utilitiestenance")) {
-			Utilitiestenance(p, sender, args, console, rank);
+		if (cmd.equalsIgnoreCase("maintenance")) {
+			Maintenance(p, sender, args, console, rank);
 		}
 		
 
 		return true;
 	}
 
-	private void Utilitiestenance(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
+	private void Maintenance(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 
 		config.reloadData();
 
 		if (console) {
-			if (config.data.getBoolean("Utilitiestenance")) {
-				config.data.set("Utilitiestenance", false);
-				Utilities.msgAll("&cStaff, Please be alert that an Administrator has disabled Utilitiestenance Mode!");
+			if (config.data.getBoolean("Maintenance")) {
+				config.data.set("Maintenance", false);
+				Utilities.msgAll("&cStaff, Please be alert that an Administrator has disabled Maintenance Mode!");
 			} else {
-				config.data.set("Utilitiestenance", true);
+				config.data.set("Maintenance", true);
 				for (Player pls : Bukkit.getOnlinePlayers()) {
 					Rank plsRank = Utilities.getRank(pls);
 					if (plsRank.getRank() == 0) {
-						pls.kickPlayer("FrostedIsles is going into Utilitiestenance \n Please check back later!");
+						pls.kickPlayer("FrostedIsles is going into Maintenance \n Please check back later!");
 					}
 				}
-				Utilities.msgAll("&cStaff, Please be alert that an Administrator has enabled Utilitiestenance Mode!");
+				Utilities.msgAll("&cStaff, Please be alert that an Administrator has enabled Maintenance Mode!");
 			}
 		} else {
 			if (rank.getRank() == Rank.Owner()) {
-				if (config.data.getBoolean("Utilitiestenance")) {
-					config.data.set("Utilitiestenance", false);
-					Utilities.msgAll("&cStaff, Please be alert that an Administrator has disabled Utilitiestenance Mode!");
+				if (config.data.getBoolean("Maintenance")) {
+					config.data.set("Maintenance", false);
+					Utilities.msgAll("&cStaff, Please be alert that an Administrator has disabled Maintenance Mode!");
 				} else {
-					config.data.set("Utilitiestenance", true);
+					config.data.set("Maintenance", true);
 					for (Player pls : Bukkit.getOnlinePlayers()) {
 						Rank plsRank = Utilities.getRank(pls);
 						if (plsRank.getRank() == 0) {
-							pls.kickPlayer("FrostedIsles is going into Utilitiestenance \n Please check back later!");
+							pls.kickPlayer("FrostedIsles is going into Maintenance \n Please check back later!");
 						}
 					}
-					Utilities.msgAll("&cStaff, Please be alert that an Administrator has enabled Utilitiestenance Mode!");
+					Utilities.msgAll("&cStaff, Please be alert that an Administrator has enabled Maintenance Mode!");
 				}
 			}
 		}
