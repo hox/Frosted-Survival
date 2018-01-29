@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import com.FrostedIsles.Comp.Rank;
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
+import com.FrostedIsles.Comp.Utilities;
 
 public class Admins implements CommandExecutor {
 
@@ -57,22 +58,22 @@ public class Admins implements CommandExecutor {
 	private void gmc(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
 			if (args.length != 1) {
-				Main.sendMsg(sender, "&cUsage: &a>>&7gmc {PLAYER}");
+				Utilities.sendMsg(sender, "&cUsage: &a>>&7gmc {PLAYER}");
 			} else {
 				try {
 					Player t = Bukkit.getPlayer(args[0]);
 					t.setGameMode(GameMode.CREATIVE);
-					Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Creative!");
-					Main.sendMsg(t, "&7Your gamemode has been switched to Creative!");
+					Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Creative!");
+					Utilities.sendMsg(t, "&7Your gamemode has been switched to Creative!");
 				} catch (Exception e) {
-					Main.sendMsg(sender, Main.pnf);
+					Utilities.sendMsg(sender, Utilities.pnf);
 				}
 			}
 		} else {
 			if (rank.getRank() >= Rank.Admin() || rank.getRank() == Rank.Builder()) {
 				if (args.length == 0) {
 					p.setGameMode(GameMode.CREATIVE);
-					Main.sendMsg(sender, "&7Success, Your gamemode has been switched to Creative!");
+					Utilities.sendMsg(sender, "&7Success, Your gamemode has been switched to Creative!");
 				} else if (args.length == 1) {
 					try {
 						Player t = Bukkit.getPlayer(args[0]);
@@ -80,22 +81,22 @@ public class Admins implements CommandExecutor {
 						String rankStr = config.getData().getString(t.getUniqueId().toString() + ".rank");
 						trank = Enum.valueOf(Rank.class, rankStr);
 
-						if (rank.getRank() >= Main.max - 1) {
+						if (rank.getRank() >= Utilities.max - 1) {
 							t.setGameMode(GameMode.CREATIVE);
-							Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Creative!");
-							Main.sendMsg(t, "&7Your gamemode has been switched to Creative!");
+							Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Creative!");
+							Utilities.sendMsg(t, "&7Your gamemode has been switched to Creative!");
 						} else {
 							if (trank.getRank() == 0) {
-								Main.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to creative!");
+								Utilities.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to creative!");
 							}
 						}
 					} catch (Exception e) {
-						Main.sendMsg(sender, Main.pnf);
+						Utilities.sendMsg(sender, Utilities.pnf);
 					}
 				} else
-					Main.sendMsg(sender, "&cUsage: &7/gmc [Player]");
+					Utilities.sendMsg(sender, "&cUsage: &7/gmc [Player]");
 			} else {
-				Main.sendMsg(sender, Main.pd);
+				Utilities.sendMsg(sender, Utilities.pd);
 			}
 		}
 	}
@@ -103,22 +104,22 @@ public class Admins implements CommandExecutor {
 	private void gms(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
 			if (args.length != 1) {
-				Main.sendMsg(sender, "&cUsage: &a>>&7gms {PLAYER}");
+				Utilities.sendMsg(sender, "&cUsage: &a>>&7gms {PLAYER}");
 			} else {
 				try {
 					Player t = Bukkit.getPlayer(args[0]);
 					t.setGameMode(GameMode.SURVIVAL);
-					Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Survival!");
-					Main.sendMsg(t, "&7Your gamemode has been switched to Survival!");
+					Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Survival!");
+					Utilities.sendMsg(t, "&7Your gamemode has been switched to Survival!");
 				} catch (Exception e) {
-					Main.sendMsg(sender, Main.pnf);
+					Utilities.sendMsg(sender, Utilities.pnf);
 				}
 			}
 		} else {
 			if (rank.getRank() >= Rank.Admin() || rank.getRank() == Rank.Builder()) {
 				if (args.length == 0) {
 					p.setGameMode(GameMode.SURVIVAL);
-					Main.sendMsg(sender, "&7Success, Your gamemode has been switched to Survival!");
+					Utilities.sendMsg(sender, "&7Success, Your gamemode has been switched to Survival!");
 				} else if (args.length == 1) {
 					try {
 						Player t = Bukkit.getPlayer(args[0]);
@@ -126,22 +127,22 @@ public class Admins implements CommandExecutor {
 						String rankStr = config.getData().getString(t.getUniqueId().toString() + ".rank");
 						trank = Enum.valueOf(Rank.class, rankStr);
 
-						if (rank.getRank() >= Main.max - 1) {
+						if (rank.getRank() >= Utilities.max - 1) {
 							t.setGameMode(GameMode.SURVIVAL);
-							Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Survival!");
-							Main.sendMsg(t, "&7Your gamemode has been switched to Survival!");
+							Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Survival!");
+							Utilities.sendMsg(t, "&7Your gamemode has been switched to Survival!");
 						} else {
 							if (trank.getRank() == 0) {
-								Main.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to Survival!");
+								Utilities.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to Survival!");
 							}
 						}
 					} catch (Exception e) {
-						Main.sendMsg(sender, Main.pnf);
+						Utilities.sendMsg(sender, Utilities.pnf);
 					}
 				} else
-					Main.sendMsg(sender, "&cUsage: &7/gmc [Player]");
+					Utilities.sendMsg(sender, "&cUsage: &7/gmc [Player]");
 			} else {
-				Main.sendMsg(sender, Main.pd);
+				Utilities.sendMsg(sender, Utilities.pd);
 			}
 		}
 	}
@@ -149,22 +150,22 @@ public class Admins implements CommandExecutor {
 	private void gma(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
 			if (args.length != 1) {
-				Main.sendMsg(sender, "&cUsage: &a>>&7gma {PLAYER}");
+				Utilities.sendMsg(sender, "&cUsage: &a>>&7gma {PLAYER}");
 			} else {
 				try {
 					Player t = Bukkit.getPlayer(args[0]);
 					t.setGameMode(GameMode.ADVENTURE);
-					Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Adventure!");
-					Main.sendMsg(t, "&7Your gamemode has been switched to Adventure!");
+					Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Adventure!");
+					Utilities.sendMsg(t, "&7Your gamemode has been switched to Adventure!");
 				} catch (Exception e) {
-					Main.sendMsg(sender, Main.pnf);
+					Utilities.sendMsg(sender, Utilities.pnf);
 				}
 			}
 		} else {
 			if (rank.getRank() >= Rank.Admin() || rank.getRank() == Rank.Builder()) {
 				if (args.length == 0) {
 					p.setGameMode(GameMode.ADVENTURE);
-					Main.sendMsg(sender, "&7Success, Your gamemode has been switched to Adventure!");
+					Utilities.sendMsg(sender, "&7Success, Your gamemode has been switched to Adventure!");
 				} else if (args.length == 1) {
 					try {
 						Player t = Bukkit.getPlayer(args[0]);
@@ -172,22 +173,22 @@ public class Admins implements CommandExecutor {
 						String rankStr = config.getData().getString(t.getUniqueId().toString() + ".rank");
 						trank = Enum.valueOf(Rank.class, rankStr);
 
-						if (rank.getRank() >= Main.max - 1) {
+						if (rank.getRank() >= Utilities.max - 1) {
 							t.setGameMode(GameMode.ADVENTURE);
-							Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Adventure!");
-							Main.sendMsg(t, "&7Your gamemode has been switched to Adventure!");
+							Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Adventure!");
+							Utilities.sendMsg(t, "&7Your gamemode has been switched to Adventure!");
 						} else {
 							if (trank.getRank() == 0) {
-								Main.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to Adventure!");
+								Utilities.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to Adventure!");
 							}
 						}
 					} catch (Exception e) {
-						Main.sendMsg(sender, Main.pnf);
+						Utilities.sendMsg(sender, Utilities.pnf);
 					}
 				} else
-					Main.sendMsg(sender, "&cUsage: &7/gmc [Player]");
+					Utilities.sendMsg(sender, "&cUsage: &7/gmc [Player]");
 			} else {
-				Main.sendMsg(sender, Main.pd);
+				Utilities.sendMsg(sender, Utilities.pd);
 			}
 		}
 	}
@@ -195,22 +196,22 @@ public class Admins implements CommandExecutor {
 	private void gmsp(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
 			if (args.length != 1) {
-				Main.sendMsg(sender, "&cUsage: &a>>&7gmc {PLAYER}");
+				Utilities.sendMsg(sender, "&cUsage: &a>>&7gmc {PLAYER}");
 			} else {
 				try {
 					Player t = Bukkit.getPlayer(args[0]);
 					t.setGameMode(GameMode.SPECTATOR);
-					Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Spectator!");
-					Main.sendMsg(t, "&7Your gamemode has been switched to Spectator!");
+					Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Spectator!");
+					Utilities.sendMsg(t, "&7Your gamemode has been switched to Spectator!");
 				} catch (Exception e) {
-					Main.sendMsg(sender, Main.pnf);
+					Utilities.sendMsg(sender, Utilities.pnf);
 				}
 			}
 		} else {
 			if (rank.getRank() >= Rank.Admin() || rank.getRank() == Rank.Builder()) {
 				if (args.length == 0) {
 					p.setGameMode(GameMode.SPECTATOR);
-					Main.sendMsg(sender, "&7Success, Your gamemode has been switched to Spectator!");
+					Utilities.sendMsg(sender, "&7Success, Your gamemode has been switched to Spectator!");
 				} else if (args.length == 1) {
 					try {
 						Player t = Bukkit.getPlayer(args[0]);
@@ -218,22 +219,22 @@ public class Admins implements CommandExecutor {
 						String rankStr = config.getData().getString(t.getUniqueId().toString() + ".rank");
 						trank = Enum.valueOf(Rank.class, rankStr);
 
-						if (rank.getRank() >= Main.max - 1) {
+						if (rank.getRank() >= Utilities.max - 1) {
 							t.setGameMode(GameMode.SPECTATOR);
-							Main.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Spectator!");
-							Main.sendMsg(t, "&7Your gamemode has been switched to Spectator!");
+							Utilities.sendMsg(sender, "&7Success, You set " + t.getName() + "'s gamemode to Spectator!");
+							Utilities.sendMsg(t, "&7Your gamemode has been switched to Spectator!");
 						} else {
 							if (trank.getRank() == 0) {
-								Main.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to Spectator!");
+								Utilities.sendMsg(sender, "&cError: &7You cant set a Member's gamemode to Spectator!");
 							}
 						}
 					} catch (Exception e) {
-						Main.sendMsg(sender, Main.pnf);
+						Utilities.sendMsg(sender, Utilities.pnf);
 					}
 				} else
-					Main.sendMsg(sender, "&cUsage: &7/gmc [Player]");
+					Utilities.sendMsg(sender, "&cUsage: &7/gmc [Player]");
 			} else {
-				Main.sendMsg(sender, Main.pd);
+				Utilities.sendMsg(sender, Utilities.pd);
 			}
 		}
 	}

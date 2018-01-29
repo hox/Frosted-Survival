@@ -7,19 +7,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.Plugin;
-
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
+import com.FrostedIsles.Comp.Utilities;
 
 public class Join implements Listener {
 
 	private static ConfigurationManager config;
-
-	public Join(Plugin main) {
-		Bukkit.getServer().getPluginManager().registerEvents(this, main);
+	public Join() {
+		
 		config = new ConfigurationManager();
-		config.setup(new File(main.getDataFolder(), "config.yml"));
+		config.setup(new File(Main.getPlugin(Main.class).getDataFolder(), "config.yml"));
 	}
 
 	@EventHandler
@@ -28,10 +26,10 @@ public class Join implements Listener {
 		e.setJoinMessage(null);
 		if(config.data.getBoolean(p.getUniqueId().toString()+".banned")) {
 			p.kickPlayer("You have been permanently banned from FrostedIsles! \n You may appeal on the forums");
-			Bukkit.broadcastMessage(Main.trColor("&7[Server] User " + p.getName() + ", tried to login but is banned!"));
+			Bukkit.broadcastMessage(Utilities.trColor("&7[Server] User " + p.getName() + ", tried to login but is banned!"));
 			return;
 		}
-		Bukkit.broadcastMessage(Main.trColor("&7[&a+&7] &b" + p.getName()));
+		Bukkit.broadcastMessage(Utilities.trColor("&7[&a+&7] &b" + p.getName()));
 		if(!config.data.contains(p.getUniqueId().toString() + ".banned")) {
 			config.data.set(p.getUniqueId().toString() + ".banned", false);
 		}
@@ -39,7 +37,7 @@ public class Join implements Listener {
 				|| config.data.contains(p.getUniqueId().toString() + ".uuid")) {
 			config.data.set(p.getUniqueId().toString() + ".uuid", p.getUniqueId().toString());
 		} else {
-			Main.msgAll("&f&l" + p.getName() + " joined for the first time!");
+			Utilities.msgAll("&f&l" + p.getName() + " joined for the first time!");
 			config.data.set(p.getUniqueId().toString() + ".uuid", p.getUniqueId().toString());
 			config.data.set(p.getUniqueId().toString() + ".rank", "Default");
 			config.data.set(p.getUniqueId().toString() + ".name", p.getName());

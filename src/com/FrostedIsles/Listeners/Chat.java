@@ -9,22 +9,22 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.plugin.Plugin;
-
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Rank;
+import com.FrostedIsles.Comp.Utilities;
 import com.massivecraft.factions.entity.MPlayer;
 
 public class Chat implements Listener {
 
 	private static ConfigurationManager config;
 	
-	public Chat(Plugin main) {
+	
+	public Chat() {
 		config = new ConfigurationManager();
 		config.setup(new File(Main.getPlugin(Main.class).getDataFolder(), "config.yml"));
-		Bukkit.getPluginManager().registerEvents(this, main);
 	}
+
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
@@ -44,22 +44,22 @@ public class Chat implements Listener {
 
 		switch (rank) {
 		case Builder:
-			e.setFormat(Main.trColor(Guild + Builder() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Utilities.trColor(Guild + Builder() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Moderator:
-			e.setFormat(Main.trColor(Guild + Moderator() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Utilities.trColor(Guild + Moderator() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Admin:
-			e.setFormat(Main.trColor(Guild + Admin() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Utilities.trColor(Guild + Admin() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Manager:
-			e.setFormat(Main.trColor(Guild + StaffManager() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Utilities.trColor(Guild + StaffManager() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Owner:
-			e.setFormat(Main.trColor(Guild + Owner() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Utilities.trColor(Guild + Owner() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		default:
-			e.setFormat(Main.trColor(Guild + Default() + p.getName() + " &c>> &f")
+			e.setFormat(Utilities.trColor(Guild + Default() + p.getName() + " &c>> &f")
 					+ ChatColor.stripColor(e.getMessage()));
 		}
 	}
@@ -128,7 +128,7 @@ public class Chat implements Listener {
 			}
 			if (rank.getRank() >= Rank.Moderator()) {
 				pls.sendMessage(
-						Main.trColor("&7[Command] " + p.getName() + " >> ") + ChatColor.stripColor(e.getMessage()));
+						Utilities.trColor("&7[Command] " + p.getName() + " >> ") + ChatColor.stripColor(e.getMessage()));
 			}
 		}
 

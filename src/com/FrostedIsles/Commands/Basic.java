@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
+import com.FrostedIsles.Comp.Utilities;
 import com.FrostedIsles.Comp.Rank;
 
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
@@ -44,7 +45,7 @@ public class Basic implements CommandExecutor {
 		}
 
 		if (cmd.equalsIgnoreCase("spawn") || cmd.equalsIgnoreCase("hub")) {
-			Main.sendMsg(p, "&7Teleporting you to spawn...");
+			Utilities.sendMsg(p, "&7Teleporting you to spawn...");
 			p.teleport(new Location(Bukkit.getWorld("Survival"), -779, 136.75, 1002.5, 0, 0));
 		}
 
@@ -53,7 +54,7 @@ public class Basic implements CommandExecutor {
 		}
 
 		if (cmd.equalsIgnoreCase("shop")) {
-			Main.sendMsg(p, "&7Teleporting you to shop...");
+			Utilities.sendMsg(p, "&7Teleporting you to shop...");
 			p.teleport(new Location(Bukkit.getWorld("Survival"), 6513.5, 63.2, 2174.5, 90, 0));
 		}
 		
@@ -62,11 +63,15 @@ public class Basic implements CommandExecutor {
 		}
 		
 		if(cmd.equalsIgnoreCase("report")) {
+			report(p, sender, args, console, rank);
+		}
+		
+		if(cmd.equalsIgnoreCase("vote")) {
 			
 		}
 		
 		if(cmd.equalsIgnoreCase("apply")) {
-			IChatBaseComponent cm = ChatSerializer.a(Main.trColor("{\"text\":\"&7[&bFrosted&3Isles&7]&r Click Here to open the application link!\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://frostedisles.ddns.net/apply/\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Apply for staff!\",\"color\":\"dark_purple\"}]}}}"));
+			IChatBaseComponent cm = ChatSerializer.a(Utilities.trColor("{\"text\":\"&7[&bFrosted&3Isles&7]&r Click Here to open the application link!\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://frostedisles.ddns.net/apply/\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Apply for staff!\",\"color\":\"dark_purple\"}]}}}"));
 			PacketPlayOutChat packet = new PacketPlayOutChat(cm);
 			((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
 		}
@@ -90,10 +95,10 @@ public class Basic implements CommandExecutor {
 		if (t.isFlying())
 			fly = true;
 		int seconds = Math.abs(t.getTicksLived() / 20);
-		str.append(Main.trColor("&cInfo of &f" + t.getName() + "&c:\n"));
-		str.append(Main.trColor("&cIs Op: &f" + op + "\n"));
-		str.append(Main.trColor("&cIs Flying: &f" + fly + "\n"));
-		str.append(Main.trColor("&cTime played: " + calcTime(seconds) + "\n"));
+		str.append(Utilities.trColor("&cInfo of &f" + t.getName() + "&c:\n"));
+		str.append(Utilities.trColor("&cIs Op: &f" + op + "\n"));
+		str.append(Utilities.trColor("&cIs Flying: &f" + fly + "\n"));
+		str.append(Utilities.trColor("&cTime played: " + calcTime(seconds) + "\n"));
 		// str.append(trColor(""));
 		return str.toString();
 	}
@@ -106,10 +111,10 @@ public class Basic implements CommandExecutor {
 					Player t = Bukkit.getPlayer(args[0]);
 					sender.sendMessage(whoMsg(t));
 				} catch (Exception e) {
-					Main.sendMsg(sender, Main.pnf);
+					Utilities.sendMsg(sender, Utilities.pnf);
 				}
 			} else {
-				Main.sendMsg(sender, usage);
+				Utilities.sendMsg(sender, usage);
 			}
 		} else {
 			if (rank.getRank() >= Rank.Moderator()) {
@@ -118,10 +123,10 @@ public class Basic implements CommandExecutor {
 						Player t = Bukkit.getPlayer(args[0]);
 						sender.sendMessage(whoMsg(t));
 					} catch (Exception e) {
-						Main.sendMsg(sender, Main.pnf);
+						Utilities.sendMsg(sender, Utilities.pnf);
 					}
 				} else {
-					Main.sendMsg(sender, usage);
+					Utilities.sendMsg(sender, usage);
 				}
 			}
 		}
@@ -140,8 +145,12 @@ public class Basic implements CommandExecutor {
 
 		p.teleport(teleportlocation);
 
-		Main.sendMsg(p,
+		Utilities.sendMsg(p,
 				"&7Teleported " + (int) teleportlocation.distance(loc) + " blocks away from last known location.");
 		p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 5.0F, 5.0F);
+	}
+	
+	private void report(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
+		
 	}
 }
