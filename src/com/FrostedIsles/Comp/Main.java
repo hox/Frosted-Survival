@@ -45,7 +45,6 @@ public class Main extends JavaPlugin {
 	}
 
 	public void registerConfig() {
-		saveResource("config.yml", false);
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
 		
@@ -65,6 +64,7 @@ public class Main extends JavaPlugin {
 		getCommand("gms").setExecutor(new Admins());
 		getCommand("gma").setExecutor(new Admins());
 		getCommand("gmsp").setExecutor(new Admins());
+		getCommand("broadcaster").setExecutor(new Admins());
 
 		getCommand("spawn").setExecutor(new Basic());
 		getCommand("shop").setExecutor(new Basic());
@@ -83,8 +83,10 @@ public class Main extends JavaPlugin {
 		}
 		
 		public void AutoBroadcast() {
+			int delay;
+			delay = config.getData().getInt("broadcaster-interval");
 			new BukkitRunnable() {
-				List<String> list = getConfig().getStringList("messages");
+				List<String> list = config.getData().getStringList("messages");
 				int progress = 0;
 				public void run() {
 					if(progress == list.size()) {
@@ -96,7 +98,7 @@ public class Main extends JavaPlugin {
 						progress = 0;
 					}
 				}
-			}.runTaskTimer(this, 0, 100);
+			}.runTaskTimer(this, 0, delay);
 		}
 
 }

@@ -1,6 +1,7 @@
 package com.FrostedIsles.Commands;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -51,9 +52,74 @@ public class Admins implements CommandExecutor {
 		if (cmd.equalsIgnoreCase("gmsp")) {
 			gmsp(p, sender, args, console, rank);
 		}
+		
+		if (cmd.equalsIgnoreCase("broadcaster")) {
+			broadcaster(p, sender, args, console, rank);
+		}
 
 		return true;
 	}
+
+	private void broadcaster(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
+		if(console) {
+			Utilities.sendMsg(sender, "You must be a player to send this command.");
+		}
+		else{
+			if(rank.getRank() >= Rank.Admin()) {
+				if(args.length == 0) {
+					Utilities.sendMsg(sender, "&c[Broadcaster]&f by Ender GS");
+					Utilities.sendMsg(sender, "&6- to add a message use /broadcaster add");
+					Utilities.sendMsg(sender, "&6- to clear all the messages use /broadcaster remove");
+					Utilities.sendMsg(sender, "&6- to set the interval use /broadcaster interval");
+				}
+				if(args.length == 1) {
+					Utilities.sendMsg(sender, "&cUsage: &a>>&7broadcaster add/remove <message>");
+				}
+				if(args.length > 2) {
+					if(args[0].equalsIgnoreCase("add")) {
+						String newmessage = Utilities.buildMessage(args);
+						List<String> message = config.getData().getStringList("messages");
+						config.getData().set("messages", message);
+					    if (!message.contains(newmessage)) {
+					          message.add(newmessage);
+					          config.saveData();
+					          
+					        }
+					}
+					
+					if(args[0].equalsIgnoreCase("remove")) {
+						if(sender.getName().equals("CeaserGaming")) {
+							Utilities.sendMsg(sender, "Pls help me add Ceasar");
+						}else {
+							Utilities.sendMsg(sender, "&6 Error: Command not Implemented yet");
+						}
+					}
+							
+				}
+				if(args.length == 2){
+					if(args[0].equalsIgnoreCase("interval")) {
+						if(Utilities.isInt(args[1])){
+						config.getData().set("broadcaster-interval", Integer.parseInt(args[1]));
+						config.saveData();
+						Utilities.sendMsg(sender, "Once the plugin is restarted the changes will take affect.");
+						}else {
+							Utilities.sendMsg(sender, "&cError:  Input is not a valid a number.");
+						}
+					}
+				}
+				
+				
+			} //Check rank End
+			else {
+				Utilities.sendMsg(sender, Utilities.pd);
+			}
+			
+		}//Main Else End
+			
+			
+		}
+		
+	
 
 	private void gmc(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {

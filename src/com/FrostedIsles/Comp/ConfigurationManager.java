@@ -25,6 +25,7 @@ public class ConfigurationManager {
 		if (!this.dfile.exists()) {
 			try {
 				this.dfile.createNewFile();
+				Main.plugin.saveResource("config.yml", false);
 				
 			} catch (IOException e) {
 				Logger.severe(ChatColor.RED + "Could not create file configuration!");

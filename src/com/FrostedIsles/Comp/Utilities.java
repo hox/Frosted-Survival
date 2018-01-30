@@ -19,14 +19,14 @@ public class Utilities {
 	
 	public static Rank getRank(Player pls) {
 		Rank rank;
-		String rankStr = config.data.getString(pls.getUniqueId().toString() + ".rank");
+		String rankStr = config.getData().getString(pls.getUniqueId().toString() + ".rank");
 		rank = Enum.valueOf(Rank.class, rankStr);
 		return rank;
 	}
 
 	public static Rank getRankByUUID(String uuid) {
 		Rank rank;
-		String rankStr = config.data.getString(uuid + ".rank");
+		String rankStr = config.getData().getString(uuid + ".rank");
 		rank = Enum.valueOf(Rank.class, rankStr);
 		return rank;
 	}
@@ -43,4 +43,31 @@ public class Utilities {
 	public static void msgAll(String s) {
 		Bukkit.broadcastMessage(trColor(prefix + s));
 	}
-}
+	
+	public static void sendMsgNoPre(CommandSender p, String str) {
+		p.sendMessage(trColor(str));
+	}
+
+	public static boolean isInt(String s) {
+	    try {
+	        Integer.parseInt(s);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	  
+	public static String buildMessage(String[] args)
+	  {
+	    String message = "";
+	    for (int i = 1; i < args.length; i++) {
+	      if (!message.equals("")) {
+	        message = message + " ";
+	      }
+	      message = message + args[i];
+	    }
+	    return message;
+	  }
+	}
+
+

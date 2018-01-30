@@ -56,5 +56,8 @@ commands:
         usage: /<command>
         aliases: wild
     invsee:
-        description: See Inventory
+        description: See Inventory!
+        usage: /<command>
+    broadcaster:
+        description: Main broadcaster command!
         usage: /<command>
