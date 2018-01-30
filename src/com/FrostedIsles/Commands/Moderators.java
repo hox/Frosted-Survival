@@ -62,7 +62,7 @@ public class Moderators implements CommandExecutor {
 					
 					if(args.length == 1) {
 						try {
-						if(args[0] == sender.getName()) {
+						if(args[0].equals(sender.getName())) {
 							Utilities.sendMsg(sender,"&cError:&7 You cannot open your own inventory!");
 						}
 						else {Player t = Bukkit.getPlayer(args[0]);
@@ -75,6 +75,8 @@ public class Moderators implements CommandExecutor {
 					}
 				}
 			}
+		}else {
+			Utilities.sendMsg(sender, Utilities.pd);
 		}
 		}
 		
@@ -82,16 +84,18 @@ public class Moderators implements CommandExecutor {
 
 	private void fly(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
-			Utilities.sendMsg(sender, Utilities.pd);
+			Utilities.sendMsg(sender, "&cError: You must be a player to use this command");
 		} else {
 			if (rank.getRank() >= Rank.Moderator()) {
-				if (p.isFlying()) {
-					p.setFlying(false);
+				if (!p.isFlying()) {
+					p.setFlying(true);
 					Utilities.sendMsg(sender, "&cFlight mode enabled!");
 				} else {
-					p.setFlying(true);
+					p.setFlying(false);
 					Utilities.sendMsg(sender, "&cFlight mode disabled!");
 				}
+			}else {
+				Utilities.sendMsg(sender, Utilities.pd);
 			}
 			}
 		}
@@ -126,6 +130,8 @@ public class Moderators implements CommandExecutor {
 				}
 			} else
 				Utilities.sendMsg(sender, "&cUsage: &7/ci [PLAYER]");
+		}else {
+			Utilities.sendMsg(sender, Utilities.pd);
 		}
 	}
 

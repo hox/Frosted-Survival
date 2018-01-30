@@ -1,11 +1,9 @@
 package com.FrostedIsles.Comp;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -23,11 +21,12 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	public static ConfigurationManager config;
 
-	HashMap<Player, Player> invites = new HashMap<Player, Player>();
+	//HashMap<Player, Player> invites = new HashMap<Player, Player>();
 
 	@Override
 	public void onEnable() {
-		plugin = this;
+
+		
 		registerConfig();
 		registerCommands();
 		registerEvents();
@@ -37,16 +36,17 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		config.saveData();
+		//config.saveData();
 
 		//Bukkit.getScheduler().cancelTasks(this);
 		Bukkit.getScheduler().cancelAllTasks();
-		plugin = null;
+		
 	}
 
 	public void registerConfig() {
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
+		
 		
 	}
 	
