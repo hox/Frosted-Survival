@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -18,6 +19,8 @@ public class Moderators implements CommandExecutor {
 
 	private static ConfigurationManager config;
 
+	public static Inventory targetInv;
+	public static HumanEntity playerClicked;
 	@Override
 	public boolean onCommand(CommandSender sender, Command c, String cmd, String[] args) {
 		config = new ConfigurationManager();
@@ -67,6 +70,8 @@ public class Moderators implements CommandExecutor {
 						}
 						else {Player t = Bukkit.getPlayer(args[0]);
 						Inventory targetInv = t.getInventory();
+						Moderators.targetInv = targetInv;
+						Moderators.playerClicked = (HumanEntity)p;
 						p.openInventory(targetInv);
 						}
 					}

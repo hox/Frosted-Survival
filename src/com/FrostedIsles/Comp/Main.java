@@ -13,6 +13,7 @@ import com.FrostedIsles.Commands.Basic;
 import com.FrostedIsles.Commands.Management;
 import com.FrostedIsles.Commands.Moderators;
 import com.FrostedIsles.Listeners.Chat;
+import com.FrostedIsles.Listeners.InvClick;
 import com.FrostedIsles.Listeners.Join;
 import com.FrostedIsles.Listeners.Leave;
 import com.FrostedIsles.Listeners.PreJoin;
@@ -80,6 +81,7 @@ public class Main extends JavaPlugin {
 			pm.registerEvents(new Join(), this);
 			pm.registerEvents(new PreJoin(), this);
 			pm.registerEvents(new Leave(), this);
+			pm.registerEvents(new InvClick(), this);
 		}
 		
 		public void AutoBroadcast() {
