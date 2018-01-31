@@ -12,8 +12,8 @@ import org.bukkit.inventory.Inventory;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
-import com.FrostedIsles.Comp.Utilities;
 import com.FrostedIsles.Comp.Rank;
+import com.FrostedIsles.Comp.Utilities;
 
 public class Moderators implements CommandExecutor {
 
@@ -21,11 +21,11 @@ public class Moderators implements CommandExecutor {
 
 	public static Inventory targetInv;
 	public static HumanEntity playerClicked;
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command c, String cmd, String[] args) {
 		config = new ConfigurationManager();
 		config.setup(new File(Main.getPlugin(Main.class).getDataFolder(), "config.yml"));
-		
 
 		Player p = null;
 		boolean console = true;
@@ -46,7 +46,7 @@ public class Moderators implements CommandExecutor {
 		if (cmd.equalsIgnoreCase("fly")) {
 			fly(p, sender, args, console, rank);
 		}
-		
+
 		if (cmd.equalsIgnoreCase("invsee")) {
 			invsee(p, sender, args, console, rank);
 		}
@@ -57,34 +57,33 @@ public class Moderators implements CommandExecutor {
 	private void invsee(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
 			Utilities.sendMsg(sender, Utilities.pd);
-		}else {
-			if (rank.getRank() >=Rank.Moderator()) {
-					if (args.length != 1) {
-						Utilities.sendMsg(sender, "&cUsage: &a>>&7/invsee {PLAYER}");
-				}else {
-					
-					if(args.length == 1) {
+		} else {
+			if (rank.getRank() >= Rank.Moderator()) {
+				if (args.length != 1) {
+					Utilities.sendMsg(sender, "&cUsage: &a>>&7/invsee {PLAYER}");
+				} else {
+
+					if (args.length == 1) {
 						try {
-						if(args[0].equals(sender.getName())) {
-							Utilities.sendMsg(sender,"&cError:&7 You cannot open your own inventory!");
+							if (args[0].equals(sender.getName())) {
+								Utilities.sendMsg(sender, "&cError:&7 You cannot open your own inventory!");
+							} else {
+								Player t = Bukkit.getPlayer(args[0]);
+								Inventory targetInv = t.getInventory();
+								Moderators.targetInv = targetInv;
+								Moderators.playerClicked = (HumanEntity) p;
+								p.openInventory(targetInv);
+							}
+						} catch (Exception e) {
+							Utilities.sendMsg(sender, Utilities.pnf);
 						}
-						else {Player t = Bukkit.getPlayer(args[0]);
-						Inventory targetInv = t.getInventory();
-						Moderators.targetInv = targetInv;
-						Moderators.playerClicked = (HumanEntity)p;
-						p.openInventory(targetInv);
-						}
-					}
-					catch (Exception e) {
-						Utilities.sendMsg(sender, Utilities.pnf);
 					}
 				}
+			} else {
+				Utilities.sendMsg(sender, Utilities.pd);
 			}
-		}else {
-			Utilities.sendMsg(sender, Utilities.pd);
 		}
-		}
-		
+
 	}
 
 	private void fly(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
@@ -92,19 +91,20 @@ public class Moderators implements CommandExecutor {
 			Utilities.sendMsg(sender, "&cError: You must be a player to use this command");
 		} else {
 			if (rank.getRank() >= Rank.Moderator()) {
-				if (!p.isFlying()) {
+				if (!p.getAllowFlight() && !p.isFlying()) {
+					p.setAllowFlight(true);
 					p.setFlying(true);
-					Utilities.sendMsg(sender, "&cFlight mode enabled!");
+					Utilities.sendMsg(p, "&cFlight mode Enabled!");
 				} else {
+					p.setAllowFlight(false);
 					p.setFlying(false);
-					Utilities.sendMsg(sender, "&cFlight mode disabled!");
+					Utilities.sendMsg(p, "&cFlight mode Disabled!");
 				}
-			}else {
+			} else {
 				Utilities.sendMsg(sender, Utilities.pd);
 			}
-			}
 		}
-	
+	}
 
 	private void clearInv(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
@@ -135,7 +135,7 @@ public class Moderators implements CommandExecutor {
 				}
 			} else
 				Utilities.sendMsg(sender, "&cUsage: &7/ci [PLAYER]");
-		}else {
+		} else {
 			Utilities.sendMsg(sender, Utilities.pd);
 		}
 	}
