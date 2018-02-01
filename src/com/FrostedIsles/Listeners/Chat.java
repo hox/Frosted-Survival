@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Rank;
-import com.FrostedIsles.Comp.Utilities;
+import com.FrostedIsles.Comp.Util;
 import com.massivecraft.factions.entity.MPlayer;
 
 public class Chat implements Listener {
@@ -44,22 +44,22 @@ public class Chat implements Listener {
 
 		switch (rank) {
 		case Builder:
-			e.setFormat(Utilities.trColor(Guild + Builder() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Util.trColor(Guild + Builder() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Moderator:
-			e.setFormat(Utilities.trColor(Guild + Moderator() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Util.trColor(Guild + Moderator() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Admin:
-			e.setFormat(Utilities.trColor(Guild + Admin() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Util.trColor(Guild + Admin() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Manager:
-			e.setFormat(Utilities.trColor(Guild + StaffManager() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Util.trColor(Guild + StaffManager() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Owner:
-			e.setFormat(Utilities.trColor(Guild + Owner() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Util.trColor(Guild + Owner() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		default:
-			e.setFormat(Utilities.trColor(Guild + Default() + p.getName() + " &c>> &f")
+			e.setFormat(Util.trColor(Guild + Default() + p.getName() + " &c>> &f")
 					+ ChatColor.stripColor(e.getMessage()));
 		}
 	}
@@ -128,7 +128,7 @@ public class Chat implements Listener {
 			}
 			if (rank.getRank() >= Rank.Moderator()) {
 				pls.sendMessage(
-						Utilities.trColor("&7[Command] " + p.getName() + " >> ") + ChatColor.stripColor(e.getMessage()));
+						Util.trColor("&7[Command] " + p.getName() + " >> ") + ChatColor.stripColor(e.getMessage()));
 			}
 		}
 

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
-import com.FrostedIsles.Comp.Utilities;
+import com.FrostedIsles.Comp.Util;
 import com.FrostedIsles.Comp.Rank;
 
 public class Management implements CommandExecutor {
@@ -66,31 +66,31 @@ public class Management implements CommandExecutor {
 		if (console) {
 			if (config.data.getBoolean("Maintenance")) {
 				config.data.set("Maintenance", false);
-				Utilities.msgAll("&cStaff, Please be alert that an Administrator has disabled Maintenance Mode!");
+				Util.msgAll("&cStaff, Please be alert that an Administrator has disabled Maintenance Mode!");
 			} else {
 				config.data.set("Maintenance", true);
 				for (Player pls : Bukkit.getOnlinePlayers()) {
-					Rank plsRank = Utilities.getRank(pls);
+					Rank plsRank = Util.getRank(pls);
 					if (plsRank.getRank() == 0) {
 						pls.kickPlayer("FrostedIsles is going into Maintenance \n Please check back later!");
 					}
 				}
-				Utilities.msgAll("&cStaff, Please be alert that an Administrator has enabled Maintenance Mode!");
+				Util.msgAll("&cStaff, Please be alert that an Administrator has enabled Maintenance Mode!");
 			}
 		} else {
 			if (rank.getRank() == Rank.Owner()) {
 				if (config.data.getBoolean("Maintenance")) {
 					config.data.set("Maintenance", false);
-					Utilities.msgAll("&cStaff, Please be alert that an Administrator has disabled Maintenance Mode!");
+					Util.msgAll("&cStaff, Please be alert that an Administrator has disabled Maintenance Mode!");
 				} else {
 					config.data.set("Maintenance", true);
 					for (Player pls : Bukkit.getOnlinePlayers()) {
-						Rank plsRank = Utilities.getRank(pls);
+						Rank plsRank = Util.getRank(pls);
 						if (plsRank.getRank() == 0) {
 							pls.kickPlayer("FrostedIsles is going into Maintenance \n Please check back later!");
 						}
 					}
-					Utilities.msgAll("&cStaff, Please be alert that an Administrator has enabled Maintenance Mode!");
+					Util.msgAll("&cStaff, Please be alert that an Administrator has enabled Maintenance Mode!");
 				}
 			}
 		}
@@ -108,38 +108,38 @@ public class Management implements CommandExecutor {
 					config.data.set(puuid + ".rank", rankStr);
 					config.saveData();
 				} else {
-					Utilities.sendMsg(sender, "&cError: &7Rank not found in registry! Note: Ranks are case-sensitive.");
+					Util.sendMsg(sender, "&cError: &7Rank not found in registry! Note: Ranks are case-sensitive.");
 				}
 			} else {
-				Utilities.sendMsg(sender, "&cUsage: &7/setrank {PLAYER} {RANK}");
+				Util.sendMsg(sender, "&cUsage: &7/setrank {PLAYER} {RANK}");
 			}
 		} else {
-			Utilities.sendMsg(sender, Utilities.pd);
+			Util.sendMsg(sender, Util.pd);
 		}
 	}
 
 	private void reloadconf(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (!console) {
 			if (rank.getRank() < Rank.Manager()) {
-				Utilities.sendMsg(sender, Utilities.pd);
+				Util.sendMsg(sender, Util.pd);
 				return;
 			}
 		} else {
 
 			config.reloadData();
-			Utilities.sendMsg(sender, "&7Reloaded config!");
+			Util.sendMsg(sender, "&7Reloaded config!");
 		}
 	}
 
 	private void resetconf(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (!console) {
 			if (rank.getRank() < Rank.Manager()) {
-				Utilities.sendMsg(sender, Utilities.pd);
+				Util.sendMsg(sender, Util.pd);
 				return;
 			}
 		} else {
 			config.clearData();
-			Utilities.sendMsg(sender, "&7Reset config!");
+			Util.sendMsg(sender, "&7Reset config!");
 		}
 	}
 
@@ -154,16 +154,16 @@ public class Management implements CommandExecutor {
 					try {
 						for (int i = 60; i > 0; i--) {
 							if (i != 1 && i == 60 || i == 30 || i == 15 || i == 10 || i <= 5) {
-								Utilities.msgAll("&cThe server will be restarting in " + i + " seconds..");
+								Util.msgAll("&cThe server will be restarting in " + i + " seconds..");
 							}
 							
 							if (i == 1) {
-								Utilities.msgAll("&cThe server will be restarting in " + i + " second..");
+								Util.msgAll("&cThe server will be restarting in " + i + " second..");
 							}
 
 							Thread.sleep(1000);
 						}
-						Utilities.msgAll("&cThe server is restarting");
+						Util.msgAll("&cThe server is restarting");
 						Thread.sleep(1000);
 					} catch (Exception e) {
 						Log.error("An error has occurred while attempting to restart. " + e.getMessage());
@@ -182,17 +182,17 @@ public class Management implements CommandExecutor {
 						try {
 							for (int i = 60; i > 0; i--) {
 								if (i != 1 && i == 60 || i == 30 || i == 15 || i == 10 || i <= 5) {
-									Utilities.msgAll("&cThe server will be restarting in " + i + " seconds..");
+									Util.msgAll("&cThe server will be restarting in " + i + " seconds..");
 								}
 								
 								if (i == 1) {
-									Utilities.msgAll("&cThe server will be restarting in " + i + " second..");
+									Util.msgAll("&cThe server will be restarting in " + i + " second..");
 								}
 
 								Thread.sleep(1000);
 							}
 							
-							Utilities.msgAll("&cThe server is restarting");
+							Util.msgAll("&cThe server is restarting");
 							Thread.sleep(1000);
 						} catch (Exception e) {
 							Log.error("An error has occurred while attempting to restart. " + e.getMessage());
@@ -201,7 +201,7 @@ public class Management implements CommandExecutor {
 					}
 				});
 			} else {
-				Utilities.sendMsg(p, Utilities.pd);
+				Util.sendMsg(p, Util.pd);
 			}
 
 		}

@@ -8,13 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import com.FrostedIsles.Comp.Utilities;
+import com.FrostedIsles.Comp.Util;
 
 public class CrateGUI {
 
 	public static void openLegendaryCrate(Player p) {
 
-		Inventory inv = Bukkit.createInventory(null, 27, Utilities.trColor("&d&lLegendary &a&lCrate"));
+		Inventory inv = Bukkit.createInventory(null, 27, Util.trColor("&d&lLegendary &a&lCrate"));
 
 		Random ran = new Random();
 		int fin = 0;

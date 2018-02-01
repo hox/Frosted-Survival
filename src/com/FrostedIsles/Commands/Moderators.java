@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Rank;
-import com.FrostedIsles.Comp.Utilities;
+import com.FrostedIsles.Comp.Util;
 
 public class Moderators implements CommandExecutor {
 
@@ -56,17 +56,17 @@ public class Moderators implements CommandExecutor {
 
 	private void invsee(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
-			Utilities.sendMsg(sender, Utilities.pd);
+			Util.sendMsg(sender, Util.pd);
 		} else {
 			if (rank.getRank() >= Rank.Moderator()) {
 				if (args.length != 1) {
-					Utilities.sendMsg(sender, "&cUsage: &a>>&7/invsee {PLAYER}");
+					Util.sendMsg(sender, "&cUsage: &a>>&7/invsee {PLAYER}");
 				} else {
 
 					if (args.length == 1) {
 						try {
 							if (args[0].equals(sender.getName())) {
-								Utilities.sendMsg(sender, "&cError:&7 You cannot open your own inventory!");
+								Util.sendMsg(sender, "&cError:&7 You cannot open your own inventory!");
 							} else {
 								Player t = Bukkit.getPlayer(args[0]);
 								Inventory targetInv = t.getInventory();
@@ -75,12 +75,12 @@ public class Moderators implements CommandExecutor {
 								p.openInventory(targetInv);
 							}
 						} catch (Exception e) {
-							Utilities.sendMsg(sender, Utilities.pnf);
+							Util.sendMsg(sender, Util.pnf);
 						}
 					}
 				}
 			} else {
-				Utilities.sendMsg(sender, Utilities.pd);
+				Util.sendMsg(sender, Util.pd);
 			}
 		}
 
@@ -88,20 +88,20 @@ public class Moderators implements CommandExecutor {
 
 	private void fly(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
-			Utilities.sendMsg(sender, "&cError: You must be a player to use this command");
+			Util.sendMsg(sender, "&cError: You must be a player to use this command");
 		} else {
 			if (rank.getRank() >= Rank.Moderator()) {
 				if (!p.getAllowFlight() && !p.isFlying()) {
 					p.setAllowFlight(true);
 					p.setFlying(true);
-					Utilities.sendMsg(p, "&cFlight mode Enabled!");
+					Util.sendMsg(p, "&cFlight mode Enabled!");
 				} else {
 					p.setAllowFlight(false);
 					p.setFlying(false);
-					Utilities.sendMsg(p, "&cFlight mode Disabled!");
+					Util.sendMsg(p, "&cFlight mode Disabled!");
 				}
 			} else {
-				Utilities.sendMsg(sender, Utilities.pd);
+				Util.sendMsg(sender, Util.pd);
 			}
 		}
 	}
@@ -109,34 +109,34 @@ public class Moderators implements CommandExecutor {
 	private void clearInv(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		if (console) {
 			if (args.length != 1) {
-				Utilities.sendMsg(sender, "&cUsage: &a>>&7ci {PLAYER}");
+				Util.sendMsg(sender, "&cUsage: &a>>&7ci {PLAYER}");
 			} else {
 				try {
 					Player t = Bukkit.getPlayer(args[0]);
 					t.getInventory().clear();
-					Utilities.sendMsg(sender, "&7Success, You have cleared " + t.getName() + "'s Inventory!");
-					Utilities.sendMsg(t, "&7Your Inventory has been cleared!");
+					Util.sendMsg(sender, "&7Success, You have cleared " + t.getName() + "'s Inventory!");
+					Util.sendMsg(t, "&7Your Inventory has been cleared!");
 				} catch (Exception e) {
-					Utilities.sendMsg(sender, Utilities.pnf);
+					Util.sendMsg(sender, Util.pnf);
 				}
 			}
 		} else if (rank.getRank() >= Rank.Moderator() || rank.getRank() == Rank.Builder()) {
 			if (args.length == 0) {
 				p.getInventory().clear();
-				Utilities.sendMsg(sender, "&7Success, You have cleared your Inventory!");
+				Util.sendMsg(sender, "&7Success, You have cleared your Inventory!");
 			} else if (args.length == 1) {
 				try {
 					Player t = Bukkit.getPlayer(args[0]);
 					t.getInventory().clear();
-					Utilities.sendMsg(sender, "&7Success, You have cleared " + t.getName() + "'s Inventory!");
-					Utilities.sendMsg(t, "&7Your Inventory has been cleared!");
+					Util.sendMsg(sender, "&7Success, You have cleared " + t.getName() + "'s Inventory!");
+					Util.sendMsg(t, "&7Your Inventory has been cleared!");
 				} catch (Exception e) {
-					Utilities.sendMsg(sender, Utilities.pnf);
+					Util.sendMsg(sender, Util.pnf);
 				}
 			} else
-				Utilities.sendMsg(sender, "&cUsage: &7/ci [PLAYER]");
+				Util.sendMsg(sender, "&cUsage: &7/ci [PLAYER]");
 		} else {
-			Utilities.sendMsg(sender, Utilities.pd);
+			Util.sendMsg(sender, Util.pd);
 		}
 	}
 

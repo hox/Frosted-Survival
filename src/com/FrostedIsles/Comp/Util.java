@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 
-public class Utilities {
+public class Util {
 	
 	public static ConfigurationManager config;
 	

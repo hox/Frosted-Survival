@@ -22,12 +22,9 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	public static ConfigurationManager config;
 
-	//HashMap<Player, Player> invites = new HashMap<Player, Player>();
-
 	@Override
 	public void onEnable() {
 
-		
 		registerConfig();
 		registerCommands();
 		registerEvents();
@@ -37,20 +34,16 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		//config.saveData();
-
-		//Bukkit.getScheduler().cancelTasks(this);
 		Bukkit.getScheduler().cancelAllTasks();
-		
+
 	}
 
 	public void registerConfig() {
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
-		
-		
+
 	}
-	
+
 	public void registerCommands() {
 		getCommand("stop").setExecutor(new Management());
 		getCommand("reloadconfig").setExecutor(new Management());
@@ -74,33 +67,34 @@ public class Main extends JavaPlugin {
 		getCommand("report").setExecutor(new Basic());
 		getCommand("rtp").setExecutor(new Basic());
 	}
-	
-		public void registerEvents() {
-			PluginManager pm = getServer().getPluginManager();
-			pm.registerEvents(new Chat(), this);
-			pm.registerEvents(new Join(), this);
-			pm.registerEvents(new PreJoin(), this);
-			pm.registerEvents(new Leave(), this);
-			pm.registerEvents(new InvClick(), this);
-		}
-		
-		public void AutoBroadcast() {
-			int delay;
-			delay = config.getData().getInt("broadcaster-interval");
-			new BukkitRunnable() {
-				List<String> list = config.getData().getStringList("messages");
-				int progress = 0;
-				public void run() {
-					if(progress == list.size()) {
-						progress = 0;
-					}
-					if(progress < (list.size() +1 )) {
-						progress++;
-					}else {
-						progress = 0;
-					}
+
+	public void registerEvents() {
+		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvents(new Chat(), this);
+		pm.registerEvents(new Join(), this);
+		pm.registerEvents(new PreJoin(), this);
+		pm.registerEvents(new Leave(), this);
+		pm.registerEvents(new InvClick(), this);
+	}
+
+	public void AutoBroadcast() {
+		int delay;
+		delay = config.getData().getInt("broadcaster-interval");
+		new BukkitRunnable() {
+			List<String> list = config.getData().getStringList("messages");
+			int progress = 0;
+
+			public void run() {
+				if (progress == list.size()) {
+					progress = 0;
 				}
-			}.runTaskTimer(this, 0, delay);
-		}
+				if (progress < (list.size() + 1)) {
+					progress++;
+				} else {
+					progress = 0;
+				}
+			}
+		}.runTaskTimer(this, 0, delay);
+	}
 
 }

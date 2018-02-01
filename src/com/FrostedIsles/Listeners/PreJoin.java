@@ -9,7 +9,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Rank;
-import com.FrostedIsles.Comp.Utilities;
+import com.FrostedIsles.Comp.Util;
 
 public class PreJoin implements Listener {
 
@@ -24,7 +24,7 @@ public class PreJoin implements Listener {
 	@EventHandler
 	public void onPlayerPreJoin(AsyncPlayerPreLoginEvent e) {
 		String uuid = e.getUniqueId().toString();
-		Rank rank = Utilities.getRankByUUID(uuid);
+		Rank rank = Util.getRankByUUID(uuid);
 		if (config.data.getBoolean("maintenance")) {
 			if (rank.getRank() == 0) {
 				e.disallow(Result.KICK_OTHER, "FrostedIsles is currently in Maintenance \n Please check back later!");

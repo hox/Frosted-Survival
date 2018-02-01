@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Main;
-import com.FrostedIsles.Comp.Utilities;
+import com.FrostedIsles.Comp.Util;
 
 public class Leave implements Listener {
 
@@ -24,6 +24,6 @@ public class Leave implements Listener {
 	public void onPlayerLeave(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		e.setQuitMessage(null);
-		Bukkit.broadcastMessage(Utilities.trColor("&7[&c-&7] &b" + p.getName()));
+		Bukkit.broadcastMessage(Util.trColor("&7[&c-&7] &b" + p.getName()));
 	}
 }
