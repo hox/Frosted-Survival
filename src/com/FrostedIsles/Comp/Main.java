@@ -17,6 +17,7 @@ import com.FrostedIsles.Listeners.InvClick;
 import com.FrostedIsles.Listeners.Join;
 import com.FrostedIsles.Listeners.Leave;
 import com.FrostedIsles.Listeners.PreJoin;
+import com.FrostedIsles.Notifier.NotifierServer;
 
 public class Main extends JavaPlugin {
 	public static Main plugin;
@@ -24,18 +25,16 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		registerConfig();
 		registerCommands();
 		registerEvents();
 		AutoBroadcast();
-
+		new NotifierServer();
 	}
 
 	@Override
 	public void onDisable() {
 		Bukkit.getScheduler().cancelAllTasks();
-
 	}
 
 	public void registerConfig() {
@@ -45,27 +44,31 @@ public class Main extends JavaPlugin {
 	}
 
 	public void registerCommands() {
-		getCommand("stop").setExecutor(new Management());
-		getCommand("reloadconfig").setExecutor(new Management());
-		getCommand("maintenance").setExecutor(new Management());
-		getCommand("setrank").setExecutor(new Management());
+		Management manage = new Management();
+		getCommand("stop").setExecutor(manage);
+		getCommand("reloadconfig").setExecutor(manage);
+		getCommand("maintenance").setExecutor(manage);
+		getCommand("setrank").setExecutor(manage);
 
-		getCommand("ci").setExecutor(new Moderators());
-		getCommand("fly").setExecutor(new Moderators());
-		getCommand("invsee").setExecutor(new Moderators());
+		Moderators mod = new Moderators();
+		getCommand("ci").setExecutor(mod);
+		getCommand("fly").setExecutor(mod);
+		getCommand("invsee").setExecutor(mod);
 
-		getCommand("gmc").setExecutor(new Admins());
-		getCommand("gms").setExecutor(new Admins());
-		getCommand("gma").setExecutor(new Admins());
-		getCommand("gmsp").setExecutor(new Admins());
-		getCommand("broadcaster").setExecutor(new Admins());
+		Admins admin = new Admins();
+		getCommand("gmc").setExecutor(admin);
+		getCommand("gms").setExecutor(admin);
+		getCommand("gma").setExecutor(admin);
+		getCommand("gmsp").setExecutor(admin);
+		getCommand("broadcaster").setExecutor(admin);
 
-		getCommand("spawn").setExecutor(new Basic());
-		getCommand("shop").setExecutor(new Basic());
-		getCommand("apply").setExecutor(new Basic());
-		getCommand("who").setExecutor(new Basic());
-		getCommand("report").setExecutor(new Basic());
-		getCommand("rtp").setExecutor(new Basic());
+		Basic basic = new Basic();
+		getCommand("spawn").setExecutor(basic);
+		getCommand("shop").setExecutor(basic);
+		getCommand("apply").setExecutor(basic);
+		getCommand("who").setExecutor(basic);
+		getCommand("report").setExecutor(basic);
+		getCommand("rtp").setExecutor(basic);
 	}
 
 	public void registerEvents() {
