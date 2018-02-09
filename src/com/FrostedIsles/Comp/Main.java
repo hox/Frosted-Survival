@@ -30,6 +30,7 @@ public class Main extends JavaPlugin {
 		registerEvents();
 		AutoBroadcast();
 		new NotifierServer();
+		new Util(this);
 	}
 
 	@Override
