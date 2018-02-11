@@ -9,23 +9,27 @@ import java.net.SocketException;
 import org.bukkit.craftbukkit.libs.jline.internal.Log;
 
 public class Responder {
-	private final char DELIMITER = '\0';
+	private final char DELIMITER = '§';
 	
-	String message;
+	String message = "This should be replaced";
 	
 	//
 	synchronized public boolean NotifyAll(Socket connection) {
 		try {
-			BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			//BufferedReader input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			DataOutputStream output = new DataOutputStream(connection.getOutputStream());
 			
-			String receive = input.readLine();
+			//String receive = input.readLine();
 			
-			if (receive == null) {
+			/*if (receive.equals("DISCONNECT")) {
 				return false;
-			}
+			}*/
 			
-			output.writeBytes(message);
+			if (!message.isEmpty()) {
+				output.writeChars(message);
+			}
+			message = "";
+			
 			return true;
 		} catch (SocketException e) {
 			Log.info("Client disconnected.");

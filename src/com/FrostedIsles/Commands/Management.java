@@ -203,10 +203,6 @@ public class Management implements CommandExecutor {
 			} else {
 				Util.sendMsg(p, Util.pd);
 			}
-
 		}
-
 	}
-	
-
 }

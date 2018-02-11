@@ -22,19 +22,22 @@ import com.FrostedIsles.Notifier.NotifierServer;
 public class Main extends JavaPlugin {
 	public static Main plugin;
 	public static ConfigurationManager config;
+	public static NotifierServer notifier;
 
 	@Override
 	public void onEnable() {
+		plugin = this;
 		registerConfig();
 		registerCommands();
 		registerEvents();
 		AutoBroadcast();
-		new NotifierServer();
+		startNotifier();
 	}
 
 	@Override
 	public void onDisable() {
 		Bukkit.getScheduler().cancelAllTasks();
+		notifier.finalize();
 	}
 
 	public void registerConfig() {
@@ -100,4 +103,8 @@ public class Main extends JavaPlugin {
 		}.runTaskTimer(this, 0, delay);
 	}
 
+	public void startNotifier() {
+		notifier = new NotifierServer();
+		notifier.message.SetNotifyMessage("Plugin Enabled", "The plugin has been enabled and notifier is working.");
+	}
 }

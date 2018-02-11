@@ -5,14 +5,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.libs.jline.internal.Log;
+
+import com.FrostedIsles.Comp.Main;
 
 public class NotifierServer {
 	private ServerSocket server;
-	private Responder res;
 	private List<Thread> clients;
 	
 	private final short PORT = 1338;
+	
+	public Responder message;	
 	
 	public NotifierServer() {
 		try {
@@ -23,20 +27,27 @@ public class NotifierServer {
 			return;
 		}
 		
-		res = new Responder();
-		while (!server.isClosed()) {
-			Socket client;
-			try {
-				client = server.accept();
-			} catch (IOException e) {
-				Log.warn("Client connection failed. Reason: " + e.getMessage());
-				continue;
+		message = new Responder();
+		Bukkit.getScheduler().runTaskLaterAsynchronously(Main.plugin, new Runnable() {
+			@Override
+			public void run() {
+				while (!server.isClosed()) {
+					Socket client;
+					try {
+						client = server.accept();
+					} catch (IOException e) {
+						Log.warn("Client connection failed. Reason: " + e.getMessage());
+						continue;
+					}
+
+					Log.info("Connection established from " + client.getInetAddress().getHostAddress());
+
+					new ClientThread(message, client);
+					message.SetNotifyMessage("New connection",
+						"IP: " + client.getInetAddress().getHostAddress());
+				}
 			}
-			
-			Log.info("Connection established from " + client.getInetAddress());
-			
-			new Thread(new ClientThread(res, client)).start();
-		}
+		}, 10000);
 	}
 	
 	@Override
