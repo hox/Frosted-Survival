@@ -1,5 +1,7 @@
 package com.FrostedIsles.Comp;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -17,16 +19,21 @@ public class Util {
 	
 	public static final int max = Integer.MAX_VALUE;
 	
+	public Util(Main main) {
+		config = new ConfigurationManager();
+		config.setup(new File(main.getDataFolder(), "config.yml"));
+	}
+	
 	public static Rank getRank(Player pls) {
 		Rank rank;
-		String rankStr = config.getData().getString(pls.getUniqueId().toString() + ".rank");
+		String rankStr = config.data.getString(pls.getUniqueId().toString() + ".rank");
 		rank = Enum.valueOf(Rank.class, rankStr);
 		return rank;
 	}
 
 	public static Rank getRankByUUID(String uuid) {
 		Rank rank;
-		String rankStr = config.getData().getString(uuid + ".rank");
+		String rankStr = config.data.getString(uuid + ".rank");
 		rank = Enum.valueOf(Rank.class, rankStr);
 		return rank;
 	}
