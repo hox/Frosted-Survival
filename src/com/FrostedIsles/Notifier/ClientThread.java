@@ -1,13 +1,9 @@
 package com.FrostedIsles.Notifier;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 
 import org.bukkit.craftbukkit.libs.jline.internal.Log;
-
-import com.FrostedIsles.Comp.Util;
 
 public class ClientThread implements Runnable {
 	protected Responder res;
