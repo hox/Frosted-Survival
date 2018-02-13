@@ -31,13 +31,6 @@ public class Util {
 		return rank;
 	}
 
-	public static Rank getRankByUUID(String uuid) {
-		Rank rank;
-		String rankStr = config.data.getString(uuid + ".rank");
-		rank = Enum.valueOf(Rank.class, rankStr);
-		return rank;
-	}
-
 	public static void sendMsg(CommandSender p, String str) {
 		p.sendMessage(trColor(prefix + str));
 	}

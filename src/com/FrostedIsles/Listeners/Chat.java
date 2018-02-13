@@ -53,7 +53,7 @@ public class Chat implements Listener {
 			e.setFormat(Util.trColor(Guild + Admin() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Manager:
-			e.setFormat(Util.trColor(Guild + StaffManager() + p.getName() + " &c>> &f" + e.getMessage()));
+			e.setFormat(Util.trColor(Guild + Manager() + p.getName() + " &c>> &f" + e.getMessage()));
 			break;
 		case Owner:
 			e.setFormat(Util.trColor(Guild + Owner() + p.getName() + " &c>> &f" + e.getMessage()));
@@ -74,23 +74,8 @@ public class Chat implements Listener {
 		return String;
 	}
 
-	public static String StaffManager() {
-		String String = ChatColor.translateAlternateColorCodes('&', "&7[&cStaff&f-&cManager&7]&r &c");
-		return String;
-	}
-
-	public static String CommunityManager() {
-		String String = ChatColor.translateAlternateColorCodes('&', "&7[&dCommunity&f-&cManager&7]&r &c");
-		return String;
-	}
-
-	public static String ProjectManager() {
-		String String = ChatColor.translateAlternateColorCodes('&', "&7[&6Project&f-&cManager&7]&r &c");
-		return String;
-	}
-
-	public static String Developer() {
-		String String = ChatColor.translateAlternateColorCodes('&', "&7[&9Developer&7]&r &c");
+	public static String Manager() {
+		String String = ChatColor.translateAlternateColorCodes('&', "&7[&bManager&7]&r &c");
 		return String;
 	}
 
@@ -115,7 +100,7 @@ public class Chat implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerCommand(PlayerCommandPreprocessEvent e) { // TODO: CommandSpy
+	public void onPlayerCommand(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
 
 		for (Player pls : Bukkit.getOnlinePlayers()) {

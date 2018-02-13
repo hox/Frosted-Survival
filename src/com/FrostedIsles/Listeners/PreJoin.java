@@ -2,6 +2,8 @@ package com.FrostedIsles.Listeners;
 
 import java.io.File;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -24,7 +26,8 @@ public class PreJoin implements Listener {
 	@EventHandler
 	public void onPlayerPreJoin(AsyncPlayerPreLoginEvent e) {
 		String uuid = e.getUniqueId().toString();
-		Rank rank = Util.getRankByUUID(uuid);
+		Player p = Bukkit.getPlayer(uuid);
+		Rank rank = Util.getRank(p);
 		if (config.data.getBoolean("maintenance")) {
 			if (rank.getRank() == 0) {
 				e.disallow(Result.KICK_OTHER, "FrostedIsles is currently in Maintenance \n Please check back later!");
