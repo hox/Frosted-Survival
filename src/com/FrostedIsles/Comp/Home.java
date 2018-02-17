@@ -27,7 +27,7 @@ public class Home {
 		home.set("Z", loc.getZ());
 		home.set("Pitch", loc.getPitch());
 		home.set("Yaw", loc.getYaw());
-		
+
 		homes.saveData();
 	}
 
@@ -59,7 +59,7 @@ public class Home {
 		} else {
 			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
 		}
-		
+
 		removeHome(p, first);
 	}
 
@@ -89,7 +89,7 @@ public class Home {
 		}
 		teleport(p, first);
 	}
-	
+
 	public static void list(Player p) {
 		List<String> homes = new ArrayList<>();
 		homes.add("Your homes: ");
@@ -103,12 +103,14 @@ public class Home {
 	}
 
 	private static ConfigurationSection getPlayerData(Player p) {
-		ConfigurationSection player = homes.data.getConfigurationSection(p.getUniqueId().toString());
+		ConfigurationSection player;
 
-		if (player == null) {
-			player = homes.data.createSection(p.getUniqueId().toString());
+		try {
+			player = homes.data.getConfigurationSection(p.getUniqueId().toString());
+		} catch (Exception e) {
+			homes.data.createSection(p.getUniqueId().toString());
+			player = homes.data.getConfigurationSection(p.getUniqueId().toString());
 		}
-
 		return player;
 	}
 }

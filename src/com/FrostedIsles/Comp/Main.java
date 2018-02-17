@@ -22,6 +22,8 @@ import com.FrostedIsles.Notifier.NotifierServer;
 public class Main extends JavaPlugin {
 	public static Main plugin;
 	public static ConfigurationManager config;
+	public static ConfigurationManager kits;
+	public static ConfigurationManager homes;
 	public static NotifierServer notifier;
 
 	@Override
@@ -43,7 +45,10 @@ public class Main extends JavaPlugin {
 	public void registerConfig() {
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
-
+		kits = new ConfigurationManager();
+		kits.setup(new File(Main.plugin.getDataFolder(), "kits.yml"));
+		homes = new ConfigurationManager();
+		homes.setup(new File(Main.plugin.getDataFolder(), "homes.yml"));
 	}
 
 	public void registerCommands() {
