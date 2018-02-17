@@ -28,18 +28,27 @@ public class Kits {
 			for (String n : items) {
 				if (section.isItemStack(n)) { // Key goes with an item stack
 					inv.addItem(section.getItemStack(n));
-				} else if (section.isInt(n)) { // Key goes with 
-					
 				}
 			}
 		}
 	}
 	
-	public static void addKit(String name, List<ItemStack> items) {
+	@SuppressWarnings("deprecation")
+	public static void addKit(String name, String[] items) {
 		ConfigurationSection section = kits.data.createSection(name);
 		
-		for (Integer i = 0; i < items.size(); i++) {
-			section.set(i.toString(), items.get(i));
+		for (Integer i = 0; i < items.length; i++) {
+			String[] item = items[i].split(",");
+			String[] id = item[0].split(":");
+			ItemStack stack;
+			
+			if (id.length == 2) {
+				stack = new ItemStack(Integer.parseInt(id[0]), Integer.parseInt(item[1]), Short.parseShort(id[1]));
+			} else {
+				stack = new ItemStack(Integer.parseInt(id[0]), Integer.parseInt(item[1]));
+			}
+			
+			section.set(i.toString(), stack);
 		}
 		
 		kits.saveData();
@@ -54,8 +63,6 @@ public class Kits {
 		}
 	}
 	
-
-
 	public static void list(Player p) {
 		List<String> k = new ArrayList<>();
 		k.add("Available kits: ");

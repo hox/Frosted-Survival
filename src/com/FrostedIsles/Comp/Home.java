@@ -27,6 +27,19 @@ public class Home {
 		home.set("Z", loc.getZ());
 		home.set("Pitch", loc.getPitch());
 		home.set("Yaw", loc.getYaw());
+		
+		homes.saveData();
+	}
+
+	public static void setHome(Player p, Location loc) {
+		String first;
+		if (getPlayerData(p).getValues(true).isEmpty()) {
+			first = "";
+		} else {
+			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
+		}
+
+		setHome(p, first, loc);
 	}
 
 	public static void removeHome(Player p, String name) {
@@ -37,6 +50,17 @@ public class Home {
 			data.set(name, null);
 			homes.saveData();
 		}
+	}
+
+	public static void removeHome(Player p) {
+		String first;
+		if (getPlayerData(p).getValues(true).isEmpty()) {
+			first = "";
+		} else {
+			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
+		}
+		
+		removeHome(p, first);
 	}
 
 	public static void teleport(Player p, String name) {
@@ -51,9 +75,21 @@ public class Home {
 			float yaw = (float) home.getDouble("Yaw");
 
 			p.teleport(new Location(w, x, y, z, yaw, pitch));
+		} else {
+			Util.sendMsg(p, "Error: That home does not exist!");
 		}
 	}
 
+	public static void teleport(Player p) {
+		String first;
+		if (getPlayerData(p).getValues(true).isEmpty()) {
+			first = "";
+		} else {
+			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
+		}
+		teleport(p, first);
+	}
+	
 	public static void list(Player p) {
 		List<String> homes = new ArrayList<>();
 		homes.add("Your homes: ");

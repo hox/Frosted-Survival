@@ -60,4 +60,40 @@ commands:
         usage: /<command>
     broadcaster:
         description: Main broadcaster command!
+        usage: /<command>    
+    home:
+        description: Teleport to your home!
+        usage: /<command>    
+    homes:
+        description: Get a list of your homes!
+        usage: /<command>       
+    sethome:
+        description: Set your home!
+        usage: /<command>    
+    delhome:
+        description: Delete your home!
+        usage: /<command>
+    warp:
+        description: Teleport to a specific location!
+        usage: /<command>
+    warps:
+        description: Get a list of available warps!
+        usage: /<command>    
+    setwarp:
+        description: Set a warp!
+        usage: /<command>    
+    delwarp:
+        description: Delete a warp!
+        usage: /<command>    
+    kit:
+        description: Get a kit!
+        usage: /<command>    
+    kits:
+        description: Get a list of available kits!
+        usage: /<command>    
+    addkit:
+        description: Add a kit to the list of available kits!
+        usage: /<command>    
+    delkit:
+        description: Delete a kit to the list of available kits!
         usage: /<command>

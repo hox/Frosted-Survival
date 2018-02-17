@@ -14,8 +14,11 @@ import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
+import com.FrostedIsles.Comp.Home;
+import com.FrostedIsles.Comp.Kits;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Util;
+import com.FrostedIsles.Comp.Warp;
 import com.FrostedIsles.Comp.Rank;
 
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
@@ -75,6 +78,59 @@ public class Basic implements CommandExecutor {
 			PacketPlayOutChat packet = new PacketPlayOutChat(cm);
 			((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
 		}
+		
+		if (cmd.equalsIgnoreCase("homes")) {
+			Home.list(p);
+		}
+		
+		if (cmd.equalsIgnoreCase("home")) {
+			if (args.length > 0) {
+				Home.teleport(p, args[0]);
+			} else {
+				Home.teleport(p);
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("sethome")) {
+			if (args.length > 0) {
+				Home.setHome(p, args[0], p.getLocation());
+			} else {
+				Home.setHome(p, p.getLocation());
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("delhome")) {
+			if (args.length > 0) {
+				Home.removeHome(p, args[0]);
+			} else {
+				Home.removeHome(p);
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("warps")) {
+			Warp.list(p);
+		}
+		
+		if (cmd.equalsIgnoreCase("warp")) {
+			if (args.length == 0) {
+				Warp.list(p);
+			} else {
+				Warp.teleport(p, args[0]);
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("kits")) {
+			Kits.list(p);
+		}
+		
+		if (cmd.equalsIgnoreCase("kit")) {
+			if (args.length == 0) {
+				Util.sendMsg(p, "Usage: /kit [KitName]");
+			} else {
+				Kits.giveKit(p, args[0]);
+			}
+		}
+		
 		return true;
 	}
 

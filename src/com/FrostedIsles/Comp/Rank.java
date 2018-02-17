@@ -3,11 +3,13 @@ package com.FrostedIsles.Comp;
 public enum Rank {
 	
 	Default(0),
-	Builder(1),
-	Moderator(2),
-	Admin(3),
-	Manager(4),
-	Owner(Integer.MAX_VALUE);
+	VIP(1),
+	VIPPlus(2),
+	Builder(Util.max-4),
+	Moderator(Util.max-3),
+	Admin(Util.max-2),
+	Manager(Util.max-1),
+	Owner(Util.max);
 	
 	private final int rank;
 	
@@ -27,18 +29,28 @@ public enum Rank {
 	public static int Default() {
 		return Default.getRank();
 	}
-
+	
 	/**Rank: 1*/
+	public static int VIP() {
+		return VIP.getRank();
+	}
+	
+	/**Rank: 2*/
+	public static int VIPPlus() {
+		return VIPPlus.getRank();
+	}
+
+	/**Rank: 2147483643*/
 	public static int Builder() {
 		return Builder.getRank();
 	}
 
-	/**Rank: 2*/
+	/**Rank: 2147483644*/
 	public static int Moderator() {
 		return Moderator.getRank();
 	}
 
-	/**Rank: 3*/
+	/**Rank: 2147483645*/
 	public static int Admin() {
 		return Admin.getRank();
 	}

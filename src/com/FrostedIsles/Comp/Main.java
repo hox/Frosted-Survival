@@ -52,6 +52,10 @@ public class Main extends JavaPlugin {
 		getCommand("reloadconfig").setExecutor(manage);
 		getCommand("maintenance").setExecutor(manage);
 		getCommand("setrank").setExecutor(manage);
+		getCommand("setwarp").setExecutor(manage);
+		getCommand("delwarp").setExecutor(manage);
+		getCommand("addkit").setExecutor(manage);
+		getCommand("delkit").setExecutor(manage);
 
 		Moderators mod = new Moderators();
 		getCommand("ci").setExecutor(mod);
@@ -72,6 +76,14 @@ public class Main extends JavaPlugin {
 		getCommand("who").setExecutor(basic);
 		getCommand("report").setExecutor(basic);
 		getCommand("rtp").setExecutor(basic);
+		getCommand("home").setExecutor(basic);
+		getCommand("homes").setExecutor(basic);
+		getCommand("sethome").setExecutor(basic);
+		getCommand("delhome").setExecutor(basic);
+		getCommand("warp").setExecutor(basic);
+		getCommand("warps").setExecutor(basic);
+		getCommand("kit").setExecutor(basic);
+		getCommand("kits").setExecutor(basic);
 	}
 
 	public void registerEvents() {

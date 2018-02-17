@@ -10,8 +10,10 @@ import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
+import com.FrostedIsles.Comp.Kits;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Util;
+import com.FrostedIsles.Comp.Warp;
 import com.FrostedIsles.Comp.Rank;
 
 public class Management implements CommandExecutor {
@@ -55,6 +57,57 @@ public class Management implements CommandExecutor {
 			Maintenance(p, sender, args, console, rank);
 		}
 		
+		if (cmd.equalsIgnoreCase("setwarp")) {
+			if (rank.getRank() >= Rank.Manager()) {
+				if (args.length > 0) {
+					Warp.addWarp(args[0], p.getLocation());
+				} else {
+					Util.sendMsg(p, "Usage: /setwarp [WarpName]");
+				}
+			} else {
+				Util.sendMsg(p, Util.pd);
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("delwarp")) {
+			if (rank.getRank() >= Rank.Manager()) {
+				if (args.length > 0) {
+					Warp.removeWarp(args[0]);
+				} else {
+					Util.sendMsg(p, "Usage: /delwarp [WarpName]");
+				}
+			} else {
+				Util.sendMsg(p, Util.pd);
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("addkit")) {
+			if (rank.getRank() >= Rank.Manager()) {
+				if (args.length > 0) {
+					String[] items = new String[args.length - 1];
+					for (int i = 1; i < args.length; i++) {
+						items[i-1] = args[i];
+					}
+					Kits.addKit(args[0], items);
+				} else {
+					Util.sendMsg(p, "Usage: /addkit [KitName] [ID1],[Count1] [ID2],[Count2}, ...");
+				}
+			} else {
+				Util.sendMsg(p, Util.pd);
+			}
+		}
+		
+		if (cmd.equalsIgnoreCase("delkit")) {
+			if (rank.getRank() >= Rank.Manager()) {
+				if (args.length > 0) {
+					Kits.removeKit(args[0]);
+				} else {
+					Util.sendMsg(p, "Usage: /delkit [KitName]");
+				}
+			} else {
+				Util.sendMsg(p, Util.pd);
+			}
+		}
 
 		return true;
 	}

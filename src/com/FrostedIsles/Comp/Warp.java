@@ -27,6 +27,8 @@ public class Warp {
 		warp.set("Z", loc.getZ());
 		warp.set("Pitch", loc.getPitch());
 		warp.set("Yaw", loc.getYaw());
+		
+		warps.saveData();
 	}
 	
 	public static void removeWarp(String name) {
