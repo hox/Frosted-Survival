@@ -22,7 +22,7 @@ public class Chat implements Listener {
 	
 	public Chat() {
 		config = new ConfigurationManager();
-		config.setup(new File(Main.getPlugin(Main.class).getDataFolder(), "config.yml"));
+		config.setup(new File(Main.plugin.getDataFolder(), "config.yml"));
 	}
 
 

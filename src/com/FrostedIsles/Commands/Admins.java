@@ -88,11 +88,7 @@ public class Admins implements CommandExecutor {
 					}
 					
 					if(args[0].equalsIgnoreCase("remove")) {
-						if(sender.getName().equals("CeaserGaming")) {
-							Util.sendMsg(sender, "Pls help me add Ceasar");
-						}else {
-							Util.sendMsg(sender, "&6 Error: Command not Implemented yet");
-						}
+						//TODO: Implement
 					}
 							
 				}

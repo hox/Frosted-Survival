@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="I:/Spigot API/Factions.jar"/>
-	<classpathentry kind="lib" path="I:/Spigot API/MassiveCore.jar"/>
-	<classpathentry kind="lib" path="I:/Spigot API/spigot-1.12.2.jar"/>
+	<classpathentry kind="lib" path="C:/Spigot API/spigot-1.12.2.jar"/>
+	<classpathentry kind="lib" path="C:/Spigot API/MassiveCore.jar"/>
+	<classpathentry kind="lib" path="C:/Spigot API/Factions.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -56,18 +56,20 @@ public class Util {
 	    }
 	    return true;
 	}
-	  
-	public static String buildMessage(String[] args)
-	  {
-	    String message = "";
-	    for (int i = 1; i < args.length; i++) {
-	      if (!message.equals("")) {
-	        message = message + " ";
-	      }
-	      message = message + args[i];
-	    }
-	    return message;
-	  }
+
+	public static String buildMessage(String[] args) {
+		return buildMessage(args, " ");
 	}
 
+	public static String buildMessage(String[] args, String delimiter) {
+		String message = "";
+		for (int i = 1; i < args.length; i++) {
+			if (!message.equals("")) {
+				message = message + delimiter;
+			}
+			message = message + args[i];
+		}
+		return message;
+	}
+}
 
