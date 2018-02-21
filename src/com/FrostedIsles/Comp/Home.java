@@ -109,6 +109,8 @@ public class Home {
 			player = homes.data.getConfigurationSection(p.getUniqueId().toString());
 		} catch (Exception e) {
 			homes.data.createSection(p.getUniqueId().toString());
+			homes.saveData();
+			
 			player = homes.data.getConfigurationSection(p.getUniqueId().toString());
 		}
 		return player;

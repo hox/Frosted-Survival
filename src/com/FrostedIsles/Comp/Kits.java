@@ -67,8 +67,12 @@ public class Kits {
 		List<String> k = new ArrayList<>();
 		k.add("Available kits: ");
 
-		for (String h : kits.data.getValues(true).keySet()) {
-			k.add(h);
+		if (kits.data.getValues(true).isEmpty()) {
+			k.add("There are no kits!");
+		} else {
+			for (String h : kits.data.getValues(true).keySet()) {
+				k.add(h);
+			}
 		}
 
 		String toSend = Util.buildMessage((String[]) k.toArray(), ", ");

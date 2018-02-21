@@ -58,9 +58,13 @@ public class Warp {
 	public static void list(Player p) {
 		List<String> w = new ArrayList<>();
 		w.add("Warps: ");
-
-		for (String h : warps.data.getValues(true).keySet()) {
-			w.add(h);
+		
+		if (warps.data.getValues(true).isEmpty()) {
+			w.add("There are no warps!");
+		} else {
+			for (String h : warps.data.getValues(true).keySet()) {
+				w.add(h);
+			}
 		}
 
 		String toSend = Util.buildMessage((String[]) w.toArray(), ", ");
