@@ -26,8 +26,9 @@ import net.minecraft.server.v1_12_R1.IChatBaseComponent.ChatSerializer;
 import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 
 public class Basic implements CommandExecutor {
-
 	private static ConfigurationManager config;
+	
+	private final int RTP_RADIUS = 10000;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command c, String cmd, String[] args) {
@@ -193,13 +194,57 @@ public class Basic implements CommandExecutor {
 
 		Random r = new Random();
 
-		int x = r.nextInt(500) + 1;
-		int y = 69;
-		int z = r.nextInt(500) + 1;
+		Location teleportlocation = null;
+		
+		for (int i = 0; i < 10; i++) { // Try up to 10 times to find a location
+			boolean xPos = (r.nextInt(10) < 5); // Flip the sign for the X value?
+			boolean zPos = (r.nextInt(10) < 5); // Flip the sign for the Z value?
 
-		Location teleportlocation = new Location(p.getWorld(), x, y, z);
+			int x = r.nextInt(RTP_RADIUS);
+			int z = r.nextInt(RTP_RADIUS);
 
-		p.teleport(teleportlocation);
+			if (xPos) {
+				x *= -1;
+			}
+			if (zPos) {
+				z *= -1;
+			}
+
+			teleportlocation = new Location(p.getWorld(), x, 63, z); // Location to TP to
+			Location newPos2 = new Location(p.getWorld(), x, 62, z); // Block below
+			Location newPos3 = new Location(p.getWorld(), x, 64, z); // Block above
+
+			boolean safe = false;
+			while (newPos3.getY() < 255) {
+				if (!teleportlocation.getBlock().isEmpty() || teleportlocation.getBlock().isLiquid()
+						|| (teleportlocation.getBlock().getLightFromSky() < 8)) { // Current block is occupied
+					teleportlocation.add(0, 1, 0);
+					newPos2.add(0, 1, 0);
+					newPos3.add(0, 1, 0);
+				} else if (newPos2.getBlock().isLiquid() || newPos2.getBlock().isEmpty()) { // Block below is unsafe
+					teleportlocation.add(0, 1, 0);
+					newPos2.add(0, 1, 0);
+					newPos3.add(0, 1, 0);
+				} else if (!newPos3.getBlock().isEmpty()) { // Block at head height is occupied
+															// (potential suffocation)
+					teleportlocation.add(0, 1, 0);
+					newPos2.add(0, 1, 0);
+					newPos3.add(0, 1, 0);
+				} else {
+					p.teleport(teleportlocation.add(0.5, 0, 0.5)); // New position is safe to teleport to
+					safe = true;
+					break; // Stop going upwards
+				}
+			}
+			if (safe)
+				break; // Don't need to look for any new locations
+		}
+
+		if (teleportlocation.getY() >= 255) {
+			Util.sendMsg(p, "&7We were unable to find a safe spot for you to teleport to. Please try again.");
+			p.playSound(p.getLocation(), Sound.BLOCK_GLASS_BREAK, 5.0F, 5.0F);
+			return;
+		}
 
 		Util.sendMsg(p,
 				"&7Teleported " + (int) teleportlocation.distance(loc) + " blocks away from last known location.");
