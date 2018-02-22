@@ -1,6 +1,5 @@
 package com.FrostedIsles.Comp;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +9,9 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-public class Warp {
-	private static ConfigurationManager warps;
-	
-	public Warp() {
-		warps = new ConfigurationManager();
-		warps.setup(new File(Main.plugin.getDataFolder(), "warps.yml"));
-	}
-	
+public class Warp {	
 	public static void addWarp(String name, Location loc) {
-		ConfigurationSection warp = warps.data.createSection(name);
+		ConfigurationSection warp = Main.warps.data.createSection(name);
 		
 		warp.set("World", loc.getWorld().getName());
 		warp.set("X", loc.getX());
@@ -28,20 +20,20 @@ public class Warp {
 		warp.set("Pitch", loc.getPitch());
 		warp.set("Yaw", loc.getYaw());
 		
-		warps.saveData();
+		Main.warps.saveData();
 	}
 	
 	public static void removeWarp(String name) {
-		Object w = warps.data.get(name);
+		Object w = Main.warps.data.get(name);
 		
 		if (w != null) {
-			warps.data.set(name, null);
-			warps.saveData();
+			Main.warps.data.set(name, null);
+			Main.warps.saveData();
 		}
 	}
 	
 	public static void teleport(Player p, String name) {
-		ConfigurationSection warp = warps.data.getConfigurationSection(name);
+		ConfigurationSection warp = Main.warps.data.getConfigurationSection(name);
 		
 		if (warp != null) {
 			World w = Bukkit.getWorld(warp.getString("World"));
@@ -59,15 +51,15 @@ public class Warp {
 		List<String> w = new ArrayList<>();
 		w.add("Warps: ");
 		
-		if (warps.data.getValues(true).isEmpty()) {
+		if (Main.warps.data.getValues(true).isEmpty()) {
 			w.add("There are no warps!");
 		} else {
-			for (String h : warps.data.getValues(true).keySet()) {
+			for (String h : Main.warps.data.getValues(true).keySet()) {
 				w.add(h);
 			}
 		}
 
-		String toSend = Util.buildMessage((String[]) w.toArray(), ", ");
+		String toSend = Util.buildMessage((String[]) w.toArray(new String[w.size()]), ", ");
 		Util.sendMsgNoPre(p, toSend);
 	}
 }

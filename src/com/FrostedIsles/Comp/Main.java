@@ -42,7 +42,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Bukkit.getScheduler().cancelAllTasks();
-		notifier.finalize();
+		//notifier.finalize();
 	}
 
 	public void registerConfig() {
