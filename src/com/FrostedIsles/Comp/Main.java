@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,6 +26,7 @@ public class Main extends JavaPlugin {
 	public static ConfigurationManager config;
 	public static ConfigurationManager kits;
 	public static ConfigurationManager homes;
+	public static ConfigurationManager warps;
 	public static NotifierServer notifier;
 
 	@Override
@@ -46,9 +49,11 @@ public class Main extends JavaPlugin {
 		config = new ConfigurationManager();
 		config.setup(new File(this.getDataFolder(), "config.yml"));
 		kits = new ConfigurationManager();
-		kits.setup(new File(Main.plugin.getDataFolder(), "kits.yml"));
+		kits.setup(new File(this.getDataFolder(), "kits.yml"));
 		homes = new ConfigurationManager();
-		homes.setup(new File(Main.plugin.getDataFolder(), "homes.yml"));
+		homes.setup(new File(this.getDataFolder(), "homes.yml"));
+		warps = new ConfigurationManager();
+		warps.setup(new File(this.getDataFolder(), "warps.yml"));
 	}
 
 	public void registerCommands() {
@@ -122,6 +127,24 @@ public class Main extends JavaPlugin {
 
 	public void startNotifier() {
 		notifier = new NotifierServer();
-		notifier.message.SetNotifyMessage("Plugin Enabled", "The plugin has been enabled and notifier is working.");
+		//notifier.message.SetNotifyMessage("Plugin Enabled", "The plugin has been enabled and notifier is working.");
+	}
+	
+	public static FileConfiguration getConfigFile(String name) {
+		name = name.toLowerCase();
+		
+		switch (name) {
+		case "main":
+			return config.data;
+		case "kits":
+			return kits.data;
+		case "homes":
+			return homes.data;
+		case "warps":
+			return warps.data;
+		default:
+			Log.warn("Config for " + name + " does not exist!");
+			return null;
+		}
 	}
 }

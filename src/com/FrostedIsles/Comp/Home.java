@@ -1,6 +1,5 @@
 package com.FrostedIsles.Comp;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,18 +7,35 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class Home {
-	private static ConfigurationManager homes;
-
-	public Home() {
-		homes = new ConfigurationManager();
-		homes.setup(new File(Main.plugin.getDataFolder(), "homes.yml"));
-	}
 
 	public static void setHome(Player p, String name, Location loc) {
-		ConfigurationSection home = getPlayerData(p).createSection(name);
+		ConfigurationSection pd = getPlayerData(p);
+		Rank r = Util.getRank(p);
+		int maxHomes;
+		
+		if (r == Rank.Default) {
+			maxHomes = 1;
+		}
+		else if (r == Rank.VIP) {
+			maxHomes = 5;
+		}
+		else if (r == Rank.VIPPlus) {
+			maxHomes = 10;
+		}
+		else {
+			maxHomes = Integer.MAX_VALUE;
+		}
+		
+		if (pd.getValues(true).size() > maxHomes + 1) {
+			Util.sendMsg(p, "You have maxed out your number of homes! Please delete one to create a new home.");
+			return;
+		}
+		
+		ConfigurationSection home = pd.createSection(name);
 
 		home.set("World", loc.getWorld().getName());
 		home.set("X", loc.getX());
@@ -28,13 +44,13 @@ public class Home {
 		home.set("Pitch", loc.getPitch());
 		home.set("Yaw", loc.getYaw());
 
-		homes.saveData();
+		Main.homes.saveData();
 	}
 
 	public static void setHome(Player p, Location loc) {
 		String first;
 		if (getPlayerData(p).getValues(true).isEmpty()) {
-			first = "";
+			first = "1";
 		} else {
 			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
 		}
@@ -48,7 +64,7 @@ public class Home {
 
 		if (w != null) {
 			data.set(name, null);
-			homes.saveData();
+			Main.homes.saveData();
 		}
 	}
 
@@ -92,27 +108,31 @@ public class Home {
 
 	public static void list(Player p) {
 		List<String> homes = new ArrayList<>();
+		ConfigurationSection pd = getPlayerData(p);
 		homes.add("Your homes: ");
-
-		for (String h : getPlayerData(p).getValues(true).keySet()) {
+		
+		
+		for (String h : pd.getValues(true).keySet()) {
 			homes.add(h);
 		}
 
-		String toSend = Util.buildMessage((String[]) homes.toArray(), ", ");
+		String toSend = Util.buildMessage(homes.toArray(new String[homes.size()]), ", ");
 		Util.sendMsgNoPre(p, toSend);
 	}
 
 	private static ConfigurationSection getPlayerData(Player p) {
 		ConfigurationSection player;
-
-		try {
-			player = homes.data.getConfigurationSection(p.getUniqueId().toString());
-		} catch (Exception e) {
-			homes.data.createSection(p.getUniqueId().toString());
-			homes.saveData();
-			
-			player = homes.data.getConfigurationSection(p.getUniqueId().toString());
+		FileConfiguration data = Main.getConfigFile("homes");
+		
+		player = data.getConfigurationSection(p.getUniqueId().toString());
+		
+		if (player == null) {
+			data.set(p.getUniqueId().toString() + ".Œ", "§");
+			Main.homes.saveData();
+		
+			player = data.getConfigurationSection(p.getUniqueId().toString());
 		}
+
 		return player;
 	}
 }
