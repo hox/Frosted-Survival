@@ -95,5 +95,5 @@ commands:
         description: Add a kit to the list of available kits!
         usage: /<command>    
     delkit:
-        description: Delete a kit to the list of available kits!
+        description: Delete a kit!
         usage: /<command>
