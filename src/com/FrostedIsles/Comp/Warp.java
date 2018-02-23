@@ -23,13 +23,17 @@ public class Warp {
 		Main.warps.saveData();
 	}
 	
-	public static void removeWarp(String name) {
+	public static boolean removeWarp(String name) {
 		Object w = Main.warps.data.get(name);
 		
 		if (w != null) {
 			Main.warps.data.set(name, null);
 			Main.warps.saveData();
+			
+			return true;
 		}
+		
+		return false;
 	}
 	
 	public static void teleport(Player p, String name) {
@@ -44,7 +48,11 @@ public class Warp {
 			float yaw = (float)warp.getDouble("Yaw");
 			
 			p.teleport(new Location(w, x, y, z, yaw, pitch));
+			
+			Util.sendMsg(p, "Successfully teleported to warp " + name + "!");
 		}
+		
+		Util.sendMsg(p, "That warp does not exist!");
 	}
 	
 	public static void list(Player p) {

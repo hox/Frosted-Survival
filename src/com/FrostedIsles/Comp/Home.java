@@ -31,7 +31,7 @@ public class Home {
 		}
 		
 		if (pd.getValues(true).size() > maxHomes + 1) {
-			Util.sendMsg(p, "You have maxed out your number of homes! Please delete one to create a new home.");
+			Util.sendMsg(p, "You have maxed out your number of homes! Please delete one to set a new home.");
 			return;
 		}
 		
@@ -45,6 +45,7 @@ public class Home {
 		home.set("Yaw", loc.getYaw());
 
 		Main.homes.saveData();
+		Util.sendMsg(p, "Successfully set home " + name + "!");
 	}
 
 	public static void setHome(Player p, Location loc) {
@@ -65,7 +66,11 @@ public class Home {
 		if (w != null) {
 			data.set(name, null);
 			Main.homes.saveData();
+			
+			Util.sendMsg(p, "Successfully deleted home " + name + "!");
 		}
+		
+		Util.sendMsg(p, "You do not have a home named " + name + "!");
 	}
 
 	public static void removeHome(Player p) {

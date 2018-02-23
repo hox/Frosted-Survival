@@ -72,7 +72,11 @@ public class Management implements CommandExecutor {
 		if (cmd.equalsIgnoreCase("delwarp")) {
 			if (rank.getRank() >= Rank.Manager()) {
 				if (args.length > 0) {
-					Warp.removeWarp(args[0]);
+					if (Warp.removeWarp(args[0])) {
+						Util.sendMsg(p, "Successfully deleted warp " + args[0] + "!");
+					} else {
+						Util.sendMsg(p, "That warp does not exist!");
+					}
 				} else {
 					Util.sendMsg(p, "Usage: /delwarp [WarpName]");
 				}
@@ -83,14 +87,14 @@ public class Management implements CommandExecutor {
 		
 		if (cmd.equalsIgnoreCase("addkit")) {
 			if (rank.getRank() >= Rank.Manager()) {
-				if (args.length > 0) {
+				if (args.length == 1) {
 					String[] items = new String[args.length - 1];
 					for (int i = 1; i < args.length; i++) {
 						items[i-1] = args[i];
 					}
-					Kits.addKit(args[0], items);
+					Kits.addKit(args[0], p);
 				} else {
-					Util.sendMsg(p, "Usage: /addkit [KitName] [ID1],[Count1] [ID2],[Count2}, ...");
+					Util.sendMsg(p, "Usage: /addkit [KitName] (Your inventory will be used to determine the items to place in the kit).");
 				}
 			} else {
 				Util.sendMsg(p, Util.pd);
@@ -100,7 +104,11 @@ public class Management implements CommandExecutor {
 		if (cmd.equalsIgnoreCase("delkit")) {
 			if (rank.getRank() >= Rank.Manager()) {
 				if (args.length > 0) {
-					Kits.removeKit(args[0]);
+					if (Kits.removeKit(args[0])) {
+						Util.sendMsg(sender, "Successfully deleted " + args[0] + "!");
+					} else {
+						Util.sendMsg(sender, "That kit does not exist!");
+					}
 				} else {
 					Util.sendMsg(p, "Usage: /delkit [KitName]");
 				}
