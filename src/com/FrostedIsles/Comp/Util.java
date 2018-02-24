@@ -26,7 +26,7 @@ public class Util {
 	
 	public static Rank getRank(Player pls) {
 		Rank rank;
-		String rankStr = config.data.getString(pls.getUniqueId().toString() + ".rank");
+		String rankStr = Main.getConfigFile("main").getString(pls.getUniqueId().toString() + ".rank");
 		rank = Enum.valueOf(Rank.class, rankStr);
 		return rank;
 	}

@@ -30,7 +30,7 @@ public class Home {
 			maxHomes = Integer.MAX_VALUE;
 		}
 		
-		if (pd.getValues(true).size() > maxHomes + 1) {
+		if (pd.getValues(false).size() > maxHomes + 1) {
 			Util.sendMsg(p, "You have maxed out your number of homes! Please delete one to set a new home.");
 			return;
 		}
