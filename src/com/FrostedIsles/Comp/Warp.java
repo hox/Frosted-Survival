@@ -50,9 +50,9 @@ public class Warp {
 			p.teleport(new Location(w, x, y, z, yaw, pitch));
 			
 			Util.sendMsg(p, "Successfully teleported to warp " + name + "!");
+		} else {
+			Util.sendMsg(p, "That warp does not exist!");
 		}
-		
-		Util.sendMsg(p, "That warp does not exist!");
 	}
 	
 	public static void list(Player p) {

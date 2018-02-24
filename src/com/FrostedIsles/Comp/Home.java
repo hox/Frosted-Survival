@@ -68,9 +68,9 @@ public class Home {
 			Main.homes.saveData();
 			
 			Util.sendMsg(p, "Successfully deleted home " + name + "!");
+		} else {
+			Util.sendMsg(p, "You do not have a home named " + name + "!");
 		}
-		
-		Util.sendMsg(p, "You do not have a home named " + name + "!");
 	}
 
 	public static void removeHome(Player p) {

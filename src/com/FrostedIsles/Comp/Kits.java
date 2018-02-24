@@ -54,9 +54,9 @@ public class Kits {
 			}
 
 			Util.sendMsg(p, "You have received the " + kitname + " kit!");
+		} else {
+			Util.sendMsg(p, "That kit does not exist!");
 		}
-		
-		Util.sendMsg(p, "That kit does not exist!");
 	}
 
 	public static void addKit(String name, Player sender) {
