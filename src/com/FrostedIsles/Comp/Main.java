@@ -37,6 +37,7 @@ public class Main extends JavaPlugin {
 		registerEvents();
 		AutoBroadcast();
 		startNotifier();
+		config.data.set("maintenance", false);
 	}
 
 	@Override
@@ -94,6 +95,7 @@ public class Main extends JavaPlugin {
 		getCommand("warps").setExecutor(basic);
 		getCommand("kit").setExecutor(basic);
 		getCommand("kits").setExecutor(basic);
+		getCommand("msg").setExecutor(basic);
 	}
 
 	public void registerEvents() {

@@ -52,6 +52,10 @@ public class Basic implements CommandExecutor {
 			Util.sendMsg(p, "&7Teleporting you to spawn...");
 			p.teleport(new Location(Bukkit.getWorld("Survival"), -779, 136.75, 1002.5, 0, 0));
 		}
+		
+		if(cmd.equalsIgnoreCase("msg") || cmd.equalsIgnoreCase("pm") || cmd.equalsIgnoreCase("m") || cmd.equalsIgnoreCase("tell") || cmd.equalsIgnoreCase("t")) {
+			msg(p, sender, args, console, rank);
+		}
 
 		if (cmd.equalsIgnoreCase("who")) {
 			who(p, sender, args, console, rank);
@@ -160,6 +164,10 @@ public class Basic implements CommandExecutor {
 		return str.toString();
 	}
 
+	private void msg(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
+		
+	}
+	
 	private void who(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
 		String usage = "&cUsage: &7/who {PLAYER}";
 		if (console) {

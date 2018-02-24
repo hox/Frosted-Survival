@@ -97,3 +97,7 @@ commands:
     delkit:
         description: Delete a kit!
         usage: /<command>
+    msg:
+        description: Message a player!
+        usage: /<command>
+        aliases: []
