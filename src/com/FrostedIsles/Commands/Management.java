@@ -14,6 +14,7 @@ import com.FrostedIsles.Comp.Kits;
 import com.FrostedIsles.Comp.Main;
 import com.FrostedIsles.Comp.Util;
 import com.FrostedIsles.Comp.Warp;
+import com.FrostedIsles.GUI.CrateGUI;
 import com.FrostedIsles.Comp.Rank;
 
 public class Management implements CommandExecutor {
@@ -55,6 +56,10 @@ public class Management implements CommandExecutor {
 
 		if (cmd.equalsIgnoreCase("maintenance")) {
 			Maintenance(p, sender, args, console, rank);
+		}
+		
+		if (cmd.equalsIgnoreCase("crates")) {
+			CrateGUI.activateCrate(p);
 		}
 		
 		if (cmd.equalsIgnoreCase("setwarp")) {

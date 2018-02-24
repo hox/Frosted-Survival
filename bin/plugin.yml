@@ -60,7 +60,10 @@ commands:
         usage: /<command>
     broadcaster:
         description: Main broadcaster command!
-        usage: /<command>    
+        usage: /<command>   
+    crates:
+        description: Command in progress!
+        usage: /<command>         
     home:
         description: Teleport to your home!
         usage: /<command>    

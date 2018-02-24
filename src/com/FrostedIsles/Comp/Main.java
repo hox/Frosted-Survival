@@ -57,6 +57,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public void registerCommands() {
+		
 		Management manage = new Management();
 		getCommand("stop").setExecutor(manage);
 		getCommand("reloadconfig").setExecutor(manage);
@@ -66,6 +67,7 @@ public class Main extends JavaPlugin {
 		getCommand("delwarp").setExecutor(manage);
 		getCommand("addkit").setExecutor(manage);
 		getCommand("delkit").setExecutor(manage);
+		getCommand("crates").setExecutor(manage);
 
 		Moderators mod = new Moderators();
 		getCommand("ci").setExecutor(mod);
