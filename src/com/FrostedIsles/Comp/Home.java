@@ -117,7 +117,7 @@ public class Home {
 		homes.add("Your homes: ");
 		
 		
-		for (String h : pd.getValues(true).keySet()) {
+		for (String h : pd.getValues(false).keySet()) {
 			homes.add(h);
 		}
 
