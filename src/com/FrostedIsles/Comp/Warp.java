@@ -59,7 +59,7 @@ public class Warp {
 		List<String> w = new ArrayList<>();
 		w.add("Warps: ");
 		
-		if (Main.warps.data.getValues(true).isEmpty()) {
+		if (Main.warps.data.getValues(false).isEmpty()) {
 			w.add("There are no warps!");
 		} else {
 			for (String h : Main.warps.data.getValues(true).keySet()) {

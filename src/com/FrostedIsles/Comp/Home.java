@@ -50,7 +50,7 @@ public class Home {
 
 	public static void setHome(Player p, Location loc) {
 		String first;
-		if (getPlayerData(p).getValues(true).isEmpty()) {
+		if (getPlayerData(p).getValues(false).isEmpty()) {
 			first = "1";
 		} else {
 			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];

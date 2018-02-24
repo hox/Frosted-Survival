@@ -246,12 +246,14 @@ public class Basic implements CommandExecutor {
 			return;
 		}
 
-		Util.sendMsg(p,
-				"&7Teleported " + (int) teleportlocation.distance(loc) + " blocks away from last known location.");
+		Util.sendMsg(p, "&7Teleported " + (int) teleportlocation.distance(loc) +
+						" blocks away from last known location.");
 		p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_LAND, 5.0F, 5.0F);
 	}
 	
 	private void report(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
-		
+		IChatBaseComponent cm = ChatSerializer.a(Util.trColor("{\"text\":\"&7[&bFrosted&3Isles&7]&r Click Here to open the reporting link!\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://frostedisles.ddns.net/report/\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"Report a player!\",\"color\":\"dark_purple\"}]}}}"));
+		PacketPlayOutChat packet = new PacketPlayOutChat(cm);
+		((CraftPlayer)p).getHandle().playerConnection.sendPacket(packet);
 	}
 }

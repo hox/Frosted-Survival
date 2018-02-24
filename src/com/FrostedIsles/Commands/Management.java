@@ -86,7 +86,7 @@ public class Management implements CommandExecutor {
 		}
 		
 		if (cmd.equalsIgnoreCase("addkit")) {
-			if (rank.getRank() >= Rank.Manager()) {
+			if (rank.getRank() >= Rank.Admin()) {
 				if (args.length == 1) {
 					String[] items = new String[args.length - 1];
 					for (int i = 1; i < args.length; i++) {
