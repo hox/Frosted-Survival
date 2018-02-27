@@ -5,6 +5,7 @@ import java.io.File;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
 
 
@@ -25,10 +26,15 @@ public class Util {
 	}
 	
 	public static Rank getRank(Player pls) {
-		Rank rank;
 		String rankStr = Main.getConfigFile("main").getString(pls.getUniqueId().toString() + ".rank");
-		rank = Enum.valueOf(Rank.class, rankStr);
-		return rank;
+		Log.info(rankStr);
+		
+		try {
+			return Enum.valueOf(Rank.class, rankStr);
+		} catch (Exception e) {
+			Log.warn("Unable to determine rank for " + pls.getName() + ". Returning default rank.");
+			return Rank.Default;
+		}
 	}
 
 	public static void sendMsg(CommandSender p, String str) {

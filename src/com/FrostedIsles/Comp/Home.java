@@ -17,17 +17,17 @@ public class Home {
 		Rank r = Util.getRank(p);
 		int maxHomes;
 		
-		if (r == Rank.Default) {
+		if (r.equals(Rank.Default)) {
 			maxHomes = 1;
 		}
-		else if (r == Rank.VIP) {
+		else if (r.equals(Rank.VIP)) {
 			maxHomes = 5;
 		}
-		else if (r == Rank.VIPPlus) {
+		else if (r.equals(Rank.VIPPlus)) {
 			maxHomes = 10;
 		}
 		else {
-			maxHomes = Integer.MAX_VALUE;
+			maxHomes = Integer.MAX_VALUE - 1; // Minus one to prevent overflow
 		}
 		
 		if (pd.getValues(false).size() > maxHomes + 1) {
@@ -53,7 +53,7 @@ public class Home {
 		if (getPlayerData(p).getValues(false).isEmpty()) {
 			first = "1";
 		} else {
-			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
+			first = (String) getPlayerData(p).getValues(false).keySet().toArray()[0];
 		}
 
 		setHome(p, first, loc);
@@ -75,10 +75,10 @@ public class Home {
 
 	public static void removeHome(Player p) {
 		String first;
-		if (getPlayerData(p).getValues(true).isEmpty()) {
+		if (getPlayerData(p).getValues(false).isEmpty()) {
 			first = "";
 		} else {
-			first = (String) getPlayerData(p).getValues(true).keySet().toArray()[0];
+			first = (String) getPlayerData(p).getValues(false).keySet().toArray()[0];
 		}
 
 		removeHome(p, first);
@@ -118,6 +118,8 @@ public class Home {
 		
 		
 		for (String h : pd.getValues(false).keySet()) {
+			if (h.equals("Œ")) continue;
+			
 			homes.add(h);
 		}
 
@@ -132,7 +134,7 @@ public class Home {
 		player = data.getConfigurationSection(p.getUniqueId().toString());
 		
 		if (player == null) {
-			data.set(p.getUniqueId().toString() + ".Œ", "§");
+			data.set(p.getUniqueId().toString() + ".Œ", "§"); //Random data to keep the player in the homes config
 			Main.homes.saveData();
 		
 			player = data.getConfigurationSection(p.getUniqueId().toString());
