@@ -50,7 +50,7 @@ public class Basic implements CommandExecutor {
 
 		if (cmd.equalsIgnoreCase("spawn") || cmd.equalsIgnoreCase("hub")) {
 			Util.sendMsg(p, "&7Teleporting you to spawn...");
-			p.teleport(new Location(Bukkit.getWorld("Survival"), -779, 136.75, 1002.5, 0, 0));
+			p.teleport(Util.SPAWN);
 		}
 		
 		if(cmd.equalsIgnoreCase("msg") || cmd.equalsIgnoreCase("pm") || cmd.equalsIgnoreCase("m") || cmd.equalsIgnoreCase("tell") || cmd.equalsIgnoreCase("t")) {
@@ -63,7 +63,7 @@ public class Basic implements CommandExecutor {
 
 		if (cmd.equalsIgnoreCase("shop")) {
 			Util.sendMsg(p, "&7Teleporting you to shop...");
-			p.teleport(new Location(Bukkit.getWorld("Survival"), 6513.5, 63.2, 2174.5, 90, 0));
+			p.teleport(Util.SHOP);
 		}
 		
 		if(cmd.equalsIgnoreCase("rtp") || cmd.equalsIgnoreCase("wild")) {

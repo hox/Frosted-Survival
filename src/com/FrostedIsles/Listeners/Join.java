@@ -3,7 +3,6 @@ package com.FrostedIsles.Listeners;
 import java.io.File;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,7 +36,7 @@ public class Join implements Listener {
 			config.data.set(p.getUniqueId().toString() + ".name", p.getName());
 			config.data.set(p.getName(), p.getUniqueId().toString());
 			config.saveData();
-			p.teleport(new Location(Bukkit.getWorld("Survival"), -779, 136.75, 1002.5, 0, 0));
+			p.teleport(Util.SPAWN);
 		}
 	}
 

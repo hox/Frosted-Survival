@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
@@ -19,6 +20,9 @@ public class Util {
 	public static final String wi = trColor("&cError: &7You are not permitted to do that in this world!");
 	
 	public static final int max = Integer.MAX_VALUE;
+	
+	public static final Location SPAWN = new Location(Bukkit.getWorld("Survival"), -779, 137, 1002.5, 0, 0);
+	public static final Location SHOP = new Location(Bukkit.getWorld("Survival"), 6513.5, 63.2, 2174.5, 90, 0);
 	
 	public Util(Main main) {
 		config = new ConfigurationManager();
