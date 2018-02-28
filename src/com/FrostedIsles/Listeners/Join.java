@@ -34,6 +34,7 @@ public class Join implements Listener {
 			config.data.set(p.getUniqueId().toString() + ".uuid", p.getUniqueId().toString());
 			config.data.set(p.getUniqueId().toString() + ".rank", "Default");
 			config.data.set(p.getUniqueId().toString() + ".name", p.getName());
+			//config.data.set(p.getUniqueId().toString() + ".balance", p.getName());
 			config.data.set(p.getName(), p.getUniqueId().toString());
 			config.saveData();
 			p.teleport(Util.SPAWN);

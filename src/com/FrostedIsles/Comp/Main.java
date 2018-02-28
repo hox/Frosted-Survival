@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.FrostedIsles.Commands.Admins;
 import com.FrostedIsles.Commands.Basic;
+import com.FrostedIsles.Commands.Economy;
 import com.FrostedIsles.Commands.Management;
 import com.FrostedIsles.Commands.Moderators;
 import com.FrostedIsles.Listeners.BlockEvent;
@@ -97,6 +98,9 @@ public class Main extends JavaPlugin {
 		getCommand("kit").setExecutor(basic);
 		getCommand("kits").setExecutor(basic);
 		getCommand("msg").setExecutor(basic);
+		
+		Economy econ = new Economy();
+		getCommand("economy").setExecutor(econ);
 	}
 
 	public void registerEvents() {
