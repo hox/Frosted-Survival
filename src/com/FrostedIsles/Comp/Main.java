@@ -15,6 +15,7 @@ import com.FrostedIsles.Commands.Basic;
 import com.FrostedIsles.Commands.Management;
 import com.FrostedIsles.Commands.Moderators;
 import com.FrostedIsles.Listeners.Chat;
+import com.FrostedIsles.Listeners.Interact;
 import com.FrostedIsles.Listeners.InvClick;
 import com.FrostedIsles.Listeners.Join;
 import com.FrostedIsles.Listeners.Leave;
@@ -27,7 +28,7 @@ public class Main extends JavaPlugin {
 	public static ConfigurationManager kits;
 	public static ConfigurationManager homes;
 	public static ConfigurationManager warps;
-	public static NotifierServer notifier;
+	//public static NotifierServer notifier;
 
 	@Override
 	public void onEnable() {
@@ -36,7 +37,7 @@ public class Main extends JavaPlugin {
 		registerCommands();
 		registerEvents();
 		AutoBroadcast();
-		startNotifier();
+		//startNotifier();
 	}
 
 	@Override
@@ -105,6 +106,7 @@ public class Main extends JavaPlugin {
 		pm.registerEvents(new PreJoin(), this);
 		pm.registerEvents(new Leave(), this);
 		pm.registerEvents(new InvClick(), this);
+		pm.registerEvents(new Interact(), this);
 	}
 
 	public void AutoBroadcast() {
@@ -127,10 +129,10 @@ public class Main extends JavaPlugin {
 		}.runTaskTimer(this, 0, delay);
 	}
 
-	public void startNotifier() {
-		notifier = new NotifierServer();
+	//public void startNotifier() {
+		//notifier = new NotifierServer();
 		//notifier.message.SetNotifyMessage("Plugin Enabled", "The plugin has been enabled and notifier is working.");
-	}
+	//}
 	
 	public static FileConfiguration getConfigFile(String name) {
 		name = name.toLowerCase();

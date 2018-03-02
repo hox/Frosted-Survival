@@ -1,13 +1,18 @@
 package com.FrostedIsles.Commands;
 
 import java.io.File;
+import java.util.Arrays;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.libs.jline.internal.Log;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.FrostedIsles.Comp.ConfigurationManager;
 import com.FrostedIsles.Comp.Kits;
@@ -59,7 +64,7 @@ public class Management implements CommandExecutor {
 		}
 		
 		if (cmd.equalsIgnoreCase("crates")) {
-			CrateGUI.activateCrate(p);
+			crates(p,sender,args,console, rank);
 		}
 		
 		if (cmd.equalsIgnoreCase("setwarp")) {
@@ -123,6 +128,32 @@ public class Management implements CommandExecutor {
 		}
 
 		return true;
+	}
+
+	private void crates(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {
+		if(console) {
+			Util.sendMsg(sender, Util.pd);
+		}
+		else {
+			if(rank.getRank() >= Rank.Manager()) {
+				if(args.length == 0) {
+				ItemStack crateKey = new ItemStack(Material.TRIPWIRE_HOOK);
+				ItemMeta meta = crateKey.getItemMeta();
+				meta.setDisplayName(Util.trColor("&6Crate Key"));
+				meta.setLore(Arrays.asList("Type: ", "Common"));
+				meta.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 10, true);
+				crateKey.setItemMeta(meta);
+				
+				p.getInventory().addItem(crateKey);
+				}
+				if(args.length >=1) {
+					if (args[0].equalsIgnoreCase("test")) {
+						CrateGUI.activateCrate(p);
+					}
+				}
+			}
+		}
+		
 	}
 
 	private void Maintenance(Player p, CommandSender sender, String[] args, boolean console, Rank rank) {

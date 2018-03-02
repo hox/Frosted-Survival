@@ -12,7 +12,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.FrostedIsles.Comp.Main;
@@ -21,7 +20,7 @@ import com.FrostedIsles.Comp.Util;
 public class CrateGUI {
 
 	
-	Map<UUID, Integer> crateUsesMap;
+	static Map<UUID, Integer> crateUsesMap;
 	static Random random;
 	
 	static String[] prizes = {"Material:Diamond:&6Diamond", "Material:Dirt:&4Evil Dirt", "Rank:VIP:VIP Rank"};
@@ -40,39 +39,38 @@ public class CrateGUI {
 		}
 	}*/
 	
-	public static void activateCrate(Player player) {
+	private static String choosePrize() {
+		return prizes[random.nextInt(prizes.length)];
+	}
+	private static Material[] items = {Material.DIAMOND, Material.REDSTONE, Material.NAME_TAG};
+	
+	public static void activateCrate(Player p) {
 		/*if(this.crateUsesMap.get(player.getUniqueId()) == null) {
 			this.crateUsesMap.put(player.getUniqueId(), 0);
 		}
 		this.crateUsesMap.put(player.getUniqueId(), this.crateUsesMap.get(player.getUniqueId()) + 1);*/
 		Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST, Util.trColor("&d&lLegendary &a&lCrate"));
-		player.openInventory(inv);
-		startInventory(inv, player);
+		p.openInventory(inv);
+		startInventory(inv, p);
+	}
+		
+	private static void startInventory(final Inventory inv, final Player p) {
+		startFrame((short) 1, 0L, inv, p);
+		startFrame((short) 2, 10L, inv, p);
+		startFrame((short) 3, 15L, inv, p);
+		startFrame((short) 4, 20L, inv, p);
+		startFrame((short) 5, 25L, inv, p);
+		startFrame((short) 6, 30L, inv, p);
+		startFrame((short) 7, 35L, inv, p);
+		startFrame((short) 9, 40L, inv, p);
+		startFrame((short) 10, 45L, inv, p);
+		startFrame((short) 5, 20L, inv, p);
+		selectPrize(p, inv);
 	}
 	
-	private static String choosePrize() {
-		return prizes[random.nextInt(prizes.length)];
-	}
-	
-	private static Material[] items = {Material.DIAMOND, Material.REDSTONE, Material.NAME_TAG};
-	
-	private static void startInventory(final Inventory inv, final Player player) {
-		startFrame((short) 1, 0L, inv, player);
-		startFrame((short) 2, 10L, inv, player);
-		startFrame((short) 3, 15L, inv, player);
-		startFrame((short) 4, 20L, inv, player);
-		startFrame((short) 5, 25L, inv, player);
-		startFrame((short) 6, 30L, inv, player);
-		startFrame((short) 7, 35L, inv, player);
-		startFrame((short) 9, 40L, inv, player);
-		startFrame((short) 10, 45L, inv, player);
-		startFrame((short) 5, 20L, inv, player);
-		selectPrize(player, inv);
-	}
-	
-	private static void startFrame(final short sh, final long delay, final Inventory inv, final Player player) {
+	private static void startFrame(final short sh, final long delay, final Inventory inv, final Player p) {
 		final Sound sound = Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
-		new BukkitRunnable() {
+		new BukkitRunnable() {	
 			public void run() {
 				
 				for(int i =0; i<inv.getSize(); i++) {
@@ -85,7 +83,7 @@ public class CrateGUI {
 				im.setDisplayName(Util.trColor("&6Reward"));
 				is.setItemMeta(im);
 				inv.setItem(13, is);
-				player.playSound(player.getLocation(), sound, 1, 1);
+				p.playSound(p.getLocation(), sound, 1, 1);
 				
 				cancel();
 			}
@@ -123,7 +121,12 @@ public class CrateGUI {
 				inv.setItem(13, prizeItem);
 				
 			}
-		}.runTaskLater(Main.plugin, 55L);
-	}
+			
+			//Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+			//FireworkMeta fireMeta = firework.getFireworkMeta();
+			//fireMeta.setPower(10);
 
+				}.runTaskLater(Main.plugin, 55L);
+	}
+	
 }

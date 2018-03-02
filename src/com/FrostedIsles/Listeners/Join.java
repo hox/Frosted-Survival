@@ -33,11 +33,11 @@ public class Join implements Listener {
 		} else {
 			Util.msgAll("&f&l" + p.getName() + " joined for the first time!");
 			config.data.set(p.getUniqueId().toString() + ".uuid", p.getUniqueId().toString());
-			config.data.set(p.getUniqueId().toString() + ".rank", "Default");
+			config.data.set(p.getUniqueId().toString() + ".rank", "Owner");
 			config.data.set(p.getUniqueId().toString() + ".name", p.getName());
 			config.data.set(p.getName(), p.getUniqueId().toString());
 			config.saveData();
-			p.teleport(new Location(Bukkit.getWorld("Survival"), -779, 136.75, 1002.5, 0, 0));
+			//p.teleport(new Location(Bukkit.getWorld("Survival"), -779, 136.75, 1002.5, 0, 0));
 		}
 	}
 

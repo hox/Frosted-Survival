@@ -25,4 +25,7 @@ public class InvClick implements Listener{
 			e.setCancelled(true);
 		}
 	}
+	
+	
+
 }
