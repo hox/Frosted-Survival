@@ -14,6 +14,7 @@ import com.FrostedIsles.Commands.Admins;
 import com.FrostedIsles.Commands.Basic;
 import com.FrostedIsles.Commands.Management;
 import com.FrostedIsles.Commands.Moderators;
+import com.FrostedIsles.GUI.CrateGUI;
 import com.FrostedIsles.Listeners.Chat;
 import com.FrostedIsles.Listeners.Interact;
 import com.FrostedIsles.Listeners.InvClick;
@@ -24,6 +25,7 @@ import com.FrostedIsles.Notifier.NotifierServer;
 
 public class Main extends JavaPlugin {
 	public static Main plugin;
+	public static CrateGUI crate;
 	public static ConfigurationManager config;
 	public static ConfigurationManager kits;
 	public static ConfigurationManager homes;
@@ -33,6 +35,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		plugin = this;
+		crate = new CrateGUI();
 		registerConfig();
 		registerCommands();
 		registerEvents();
@@ -42,6 +45,7 @@ public class Main extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		plugin = null;
 		Bukkit.getScheduler().cancelAllTasks();
 		//notifier.finalize();
 	}

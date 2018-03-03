@@ -20,10 +20,10 @@ import com.FrostedIsles.Comp.Util;
 public class CrateGUI {
 
 	
-	static Map<UUID, Integer> crateUsesMap;
-	static Random random;
+	private Map<UUID, Integer> crateUsesMap;
+	 private Random random;
 	
-	static String[] prizes = {"Material:Diamond:&6Diamond", "Material:Dirt:&4Evil Dirt", "Rank:VIP:VIP Rank"};
+	private String[] prizes = {"Material:Diamond:&6Diamond", "Material:Dirt:&4Evil Dirt", "Rank:VIP:VIP Rank"};
 	
 	/*public void LegendaryCrate(Player player) {
 
@@ -39,12 +39,12 @@ public class CrateGUI {
 		}
 	}*/
 	
-	private static String choosePrize() {
-		return prizes[random.nextInt(prizes.length)];
+	String choosePrize() {
+		return prizes[this.random.nextInt(prizes.length)];
 	}
-	private static Material[] items = {Material.DIAMOND, Material.REDSTONE, Material.NAME_TAG};
+	private Material[] items = {Material.DIAMOND, Material.REDSTONE, Material.NAME_TAG};
 	
-	public static void activateCrate(Player p) {
+	public void activateCrate(Player p) {
 		/*if(this.crateUsesMap.get(player.getUniqueId()) == null) {
 			this.crateUsesMap.put(player.getUniqueId(), 0);
 		}
@@ -54,7 +54,7 @@ public class CrateGUI {
 		startInventory(inv, p);
 	}
 		
-	private static void startInventory(final Inventory inv, final Player p) {
+	private void startInventory(final Inventory inv, final Player p) {
 		startFrame((short) 1, 0L, inv, p);
 		startFrame((short) 2, 10L, inv, p);
 		startFrame((short) 3, 15L, inv, p);
@@ -68,7 +68,7 @@ public class CrateGUI {
 		selectPrize(p, inv);
 	}
 	
-	private static void startFrame(final short sh, final long delay, final Inventory inv, final Player p) {
+	private void startFrame(final short sh, final long delay, final Inventory inv, final Player p) {
 		final Sound sound = Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
 		new BukkitRunnable() {	
 			public void run() {
@@ -90,7 +90,7 @@ public class CrateGUI {
 		}.runTaskLater(Main.plugin, delay);
 	}
 	
-	private static void selectPrize(final Player player, final Inventory inv) {
+	private void selectPrize(final Player player, final Inventory inv) {
 		new BukkitRunnable() {
 			
 			public void run() {

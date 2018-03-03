@@ -12,6 +12,7 @@ import com.FrostedIsles.GUI.CrateGUI;
 
 public class Interact implements Listener{
 
+	private CrateGUI crate;
 	
 	@SuppressWarnings("deprecation")
 	@EventHandler
@@ -37,7 +38,7 @@ public class Interact implements Listener{
 		Player p = event.getPlayer();
 		p.setItemInHand(newItemStack);
 		
-		CrateGUI.activateCrate(p);
+		crate.activateCrate(p);
 		
 		event.setCancelled(true);
 		

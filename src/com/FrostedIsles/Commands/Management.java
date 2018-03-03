@@ -25,6 +25,7 @@ import com.FrostedIsles.Comp.Rank;
 public class Management implements CommandExecutor {
 
 	private ConfigurationManager config;
+	//private static CrateGUI crate;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command c, String cmd, String[] args) {
@@ -148,7 +149,7 @@ public class Management implements CommandExecutor {
 				}
 				if(args.length >=1) {
 					if (args[0].equalsIgnoreCase("test")) {
-						CrateGUI.activateCrate(p);
+						Main.crate.activateCrate(p);
 					}
 				}
 			}
